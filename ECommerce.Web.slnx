@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="Core/Ecommerce.Abstraction/Ecommerce.Abstraction.csproj" />
+    <Project Path="Core/Ecommerce.Domain/Ecommerce.Domain.csproj" />
+    <Project Path="Core/Ecommerce.Service/Ecommerce.Service.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="Infrastructure/Ecommerce.Presentation/Ecommerce.Presentation.csproj" />
+    <Project Path="Infrastructure/Ecommerce.Presistence/Ecommerce.Presistence.csproj" />
+  </Folder>
+  <Project Path="Ecommerce.Shared/Ecommerce.Shared.csproj" />
+  <Project Path="ECommerce.Web/ECommerce.Web.csproj" />
+</Solution>
