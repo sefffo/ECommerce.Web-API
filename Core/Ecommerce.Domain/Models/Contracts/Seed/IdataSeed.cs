@@ -8,6 +8,6 @@ namespace Ecommerce.Domain.Models.Contracts.Seed
 {
     public interface IdataSeed
     {
-        void DataSeed();
+        Task DataSeedAsync();
     }
 }

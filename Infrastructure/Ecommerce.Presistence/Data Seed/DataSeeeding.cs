@@ -19,17 +19,19 @@ namespace Ecommerce.Presistence.Data_Seed
         {
             this.context = context;
         }
-        public void DataSeed()
+        public async Task DataSeedAsync()
         {
-            if (context.Database.GetPendingMigrations().Any())
+            //msh manteky en kolo ykon async asln 
+            var pendingMigrations = await  context.Database.GetPendingMigrationsAsync();
+            if (pendingMigrations.Any())
                 context.Database.Migrate();
 
 
             //bd2na b da 3shan el product mo3tamed 3lih fel foreign key
             if (!context.ProductBrands.Any())
             {
-                var productBrandsData = File.ReadAllText(@"..\Infrastructure\Ecommerce.Presistence\Data\brands.json");
-                var productbrands = JsonSerializer.Deserialize<List<ProductBrand>>(productBrandsData);
+                var productBrandsData = await File.ReadAllTextAsync(@"..\Infrastructure\Ecommerce.Presistence\Data\brands.json");
+                var productbrands =  JsonSerializer.Deserialize<List<ProductBrand>>(productBrandsData);
                 if (productbrands is not null && productbrands.Any())
                 {
                     context.ProductBrands.AddRange(productbrands);
@@ -40,7 +42,7 @@ namespace Ecommerce.Presistence.Data_Seed
             //bd2na b da 3shan el product mo3tamed 3lih fel foreign key
             if (!context.ProductTypes.Any())
             {
-                var ProductTypesData = File.ReadAllText(@"..\Infrastructure\Ecommerce.Presistence\Data\types.json");
+                var ProductTypesData = await File.ReadAllTextAsync(@"..\Infrastructure\Ecommerce.Presistence\Data\types.json");
                 var ProductTypes = JsonSerializer.Deserialize<List<ProductType>>(ProductTypesData);
                 if (ProductTypes is not null && ProductTypes.Any())
                 {
@@ -51,7 +53,7 @@ namespace Ecommerce.Presistence.Data_Seed
 
             if (!context.Products.Any())
             {
-                var ProductsData = File.ReadAllText(@"..\Infrastructure\Ecommerce.Presistence\Data\products.json");
+                var ProductsData = await File.ReadAllTextAsync(@"..\Infrastructure\Ecommerce.Presistence\Data\products.json");
                 var Products = JsonSerializer.Deserialize<List<Product>>(ProductsData);
                 if (Products is not null && Products.Any())
                 {

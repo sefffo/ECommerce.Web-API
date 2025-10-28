@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="15.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Ecommerce.Abstraction\Ecommerce.Abstraction.csproj" />
     <ProjectReference Include="..\Ecommerce.Domain\Ecommerce.Domain.csproj" />
   </ItemGroup>

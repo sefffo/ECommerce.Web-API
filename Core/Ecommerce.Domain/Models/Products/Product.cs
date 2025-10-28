@@ -20,6 +20,6 @@ namespace Ecommerce.Domain.Models.Products
 
         public virtual ProductBrand ProductBrand { get; set; }
         public int BrandId { get; set; }
-
+        
     }
 }
