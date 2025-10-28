@@ -30,9 +30,9 @@ namespace ECommerce.Web
 
             builder.Services.AddScoped<IdataSeed, DataSeeeding>();
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-            builder.Services.AddAutoMapper(m=>m.AddProfile(new ProjectProfiles()));
+            builder.Services.AddAutoMapper(m=>m.AddProfile(new ProjectProfiles(builder.Configuration)));//3shan ash8l el sora 
             builder.Services.AddScoped<IServiceManger, ServiceManger>();
-
+            //builder.Services.AddScoped<>
             var app = builder.Build();
 
             //data seeding
@@ -52,6 +52,7 @@ namespace ECommerce.Web
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 
