@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Abstraction.Services;
+using Ecommerce.Shared.Common;
 using Ecommerce.Shared.DTOs.ProductDro_s;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,11 +16,17 @@ namespace Ecommerce.Presentation.Controllers
     [Route("api/[Controller]")] //routing el endpoint
     public class ProductController(IServiceManger manger) : ControllerBase
     {
+
+        // [Controller] ➜ [Service/Handler] ➜ [Specification] ➜ [Repository]   ➜ [EF Core Query Execution]
+        //
+
+
+
         //get all products 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(int ? BrandId ,int?TypeId,ProductSortingWay? sortingWay)
         {
-            var products = await manger.ProductServices.GetProductsAsync();
+            var products = await manger.ProductServices.GetProductsAsync(BrandId, TypeId , sortingWay);
             return Ok(products);//hywl el data as json with the 200 status code
         }
 

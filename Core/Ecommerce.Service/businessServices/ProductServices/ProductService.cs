@@ -2,6 +2,8 @@
 using Ecommerce.Abstraction.Services;
 using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
+using Ecommerce.Service.Specifications;
+using Ecommerce.Shared.Common;
 using Ecommerce.Shared.DTOs.ProductDro_s;
 using System;
 using System.Collections.Generic;
@@ -13,17 +15,21 @@ namespace Ecommerce.Service.businessServices.ProductServices
 {
     public class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync()
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(int? BrandId, int? TypeId ,ProductSortingWay? sortingWay)
         {
+            //we must use specifications to get products with their types and brands
+            //aslo we must add the the spec in the repository method
+            var spec = new  ProductSpecifications(BrandId,TypeId,sortingWay); //create specification instance
             var repo = unitOfWork.GetRepository<Product, int>();
-            var products = await repo.GetAllAsync();
+            var products = await repo.GetAllWithSpecificatonsAsync(spec);
             var ProductsDto = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
             return ProductsDto;
         }
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
+            var spec = new ProductSpecifications(id);
             var repo = unitOfWork.GetRepository<Product, int>();
-            var product = await repo.GetByIdAsync(id);
+            var product = await repo.GetByIdWithSpecificationsAync(spec);
             var ProductDto = mapper.Map<Product, ProductDto>(product);
             return ProductDto;
         }
