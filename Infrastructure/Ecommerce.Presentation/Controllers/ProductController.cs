@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Abstraction.Services;
 using Ecommerce.Shared.Common;
+using Ecommerce.Shared.Common.Specification_Pattern_Enhancment;
 using Ecommerce.Shared.DTOs.ProductDro_s;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,9 +25,10 @@ namespace Ecommerce.Presentation.Controllers
 
         //get all products 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts(int ? BrandId ,int?TypeId,ProductSortingWay? sortingWay)
+                                                                            //! 3shan bnst5dm complex query parameters
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetAllProducts([FromQuery]ProductQueryPrams productQueryPrams)
         {
-            var products = await manger.ProductServices.GetProductsAsync(BrandId, TypeId , sortingWay);
+            var products = await manger.ProductServices.GetProductsAsync(productQueryPrams);
             return Ok(products);//hywl el data as json with the 200 status code
         }
 

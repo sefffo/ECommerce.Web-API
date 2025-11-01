@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Domain.Models.Products;
 using Ecommerce.Shared.Common;
+using Ecommerce.Shared.Common.Specification_Pattern_Enhancment;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,11 +13,13 @@ namespace Ecommerce.Service.Specifications
     {                                       //specification for product entity
 
         //the base constructor needs an expression to filter by (Where)
-        public ProductSpecifications(int? BrandId, int? TypeId, ProductSortingWay? sortingWay) : base
+        public ProductSpecifications(ProductQueryPrams productQueryPrams) : base
             (
                 // hy3ml filter 3la 7asab el brand wla el type lw mawgodin
-                p => (!BrandId.HasValue || p.BrandId == BrandId) &&
-                (!TypeId.HasValue || p.TypeId == TypeId)
+                p => (!productQueryPrams.BrandId.HasValue || p.BrandId == productQueryPrams.BrandId) &&
+                (!productQueryPrams.TypeId.HasValue || p.TypeId == productQueryPrams.TypeId) &&
+                (string.IsNullOrEmpty(productQueryPrams.SearchValue)||p.Name.ToLower().Contains(productQueryPrams.SearchValue.ToLower()))
+
             )
         {
             AddInclude(p => p.ProductBrand);
@@ -24,7 +27,7 @@ namespace Ecommerce.Service.Specifications
             //each time we make a specification we extend the base specifications
             //and craete its own one by adding includes , criterias , order bys , paginations ...
 
-            switch (sortingWay)
+            switch (productQueryPrams.SortingWay)
             {
                 case ProductSortingWay.priceAsc:
                     AddOrderBy(p => p.Price);
