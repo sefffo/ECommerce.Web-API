@@ -4,6 +4,7 @@ using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
 using Ecommerce.Service.Specifications;
 using Ecommerce.Shared.Common;
+using Ecommerce.Shared.Common.Pagination_Result;
 using Ecommerce.Shared.Common.Specification_Pattern_Enhancment;
 using Ecommerce.Shared.DTOs.ProductDro_s;
 using System;
@@ -16,15 +17,17 @@ namespace Ecommerce.Service.businessServices.ProductServices
 {
     public class ProductService(IUnitOfWork unitOfWork, IMapper mapper) : IProductService
     {
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync(ProductQueryPrams productQueryPrams)
+        public async Task<PaginationResult<ProductDto>> GetProductsAsync(ProductQueryPrams productQueryPrams)
         {
             //we must use specifications to get products with their types and brands
             //aslo we must add the the spec in the repository method
             var spec = new  ProductSpecifications(productQueryPrams); //create specification instance
             var repo = unitOfWork.GetRepository<Product, int>();
             var products = await repo.GetAllWithSpecificatonsAsync(spec);
-            var ProductsDto = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-            return ProductsDto;
+            var data = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
+
+            var PageSize = data.Count();
+            return new PaginationResult<ProductDto>(productQueryPrams.PageIndex,PageSize,0, data);
         }
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {

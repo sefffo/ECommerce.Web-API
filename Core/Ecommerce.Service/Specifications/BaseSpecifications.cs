@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Service.Specifications
 {
-    public abstract class BaseSpecifications<TEntity, TKey> : ISpecification<TEntity, TKey> 
+    public abstract class BaseSpecifications<TEntity, TKey> : ISpecification<TEntity, TKey>
         where TEntity : BaseEntity<TKey>
     {
 
@@ -45,6 +45,8 @@ namespace Ecommerce.Service.Specifications
 
         public List<Expression<Func<TEntity, Object>>> Includes { get; } = [];
 
+
+
         //method to add include expressions to the list
         //so that the derived classes can call it to add their include expressions
         protected void AddInclude(Expression<Func<TEntity, object>> IncludeExpresion)
@@ -54,5 +56,27 @@ namespace Ecommerce.Service.Specifications
 
 
         #endregion
+
+
+        #region Pagination
+
+        public int take { get; private set; }
+
+        public int skip { get; private set; }
+
+        public bool isPaginable { get; set; }
+
+
+        public void ApplyPagination(int PagexIndex,int PageSize)
+        {
+            isPaginable = true;
+            take = PageSize;
+            skip = (PagexIndex-1)*PageSize;
+
+
+        }
+
+        #endregion
+
     }
 }

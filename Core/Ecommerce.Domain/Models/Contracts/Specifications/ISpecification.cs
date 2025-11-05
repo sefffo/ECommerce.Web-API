@@ -28,6 +28,14 @@ namespace Ecommerce.Domain.Models.Contracts.Specifications
         Expression<Func<TEntity, object>> OrderByDesc { get; } // order by Descending
 
 
+        //pagination 
+
+        int take { get; }
+        int skip { get; }
+
+        bool isPaginable { get; set; } //da el hy2oly amla wla la 
+
+
 
     }
 }
