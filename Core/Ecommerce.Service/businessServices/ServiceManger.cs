@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using Ecommerce.Abstraction.Services;
+using Ecommerce.Domain.Models.Contracts.RedisInMemoryRepository;
 using Ecommerce.Domain.Models.Contracts.UOW;
+using Ecommerce.Service.businessServices.CartServices;
 using Ecommerce.Service.businessServices.ProductServices;
 using System;
 using System.Collections.Generic;
@@ -10,16 +12,23 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Service.businessServices
 {
-    public class ServiceManger(IUnitOfWork unitOfWork , IMapper mapper ) : IServiceManger
+    public class ServiceManger(IUnitOfWork unitOfWork , IMapper mapper , ICartRepo Repo) : IServiceManger
     {
+
+        //Controller → ServiceManager → Business Services → UnitOfWork → Repositories → Database
 
         //zy ma ana kda atlop service product el manger ybthaly 
         private readonly Lazy<IProductService> LazyProjectService
                  = new Lazy<IProductService>(() => new Ecommerce.Service.businessServices.ProductServices.ProductService(unitOfWork, mapper));
         public IProductService ProductServices => LazyProjectService.Value;
 
+        private readonly  Lazy<ICartService> service
+            = new Lazy<ICartService>(() => new CartService(Repo, mapper));
 
 
+     
+
+        public ICartService CartService => service.Value;
 
 
 

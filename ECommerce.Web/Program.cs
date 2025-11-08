@@ -1,9 +1,11 @@
 
 using Ecommerce.Abstraction.Services;
+using Ecommerce.Domain.Models.Contracts.RedisInMemoryRepository;
 using Ecommerce.Domain.Models.Contracts.Seed;
 using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Presistence.Contexts;
 using Ecommerce.Presistence.Data_Seed;
+using Ecommerce.Presistence.Repository;
 using Ecommerce.Presistence.UnitOfWork;
 using Ecommerce.Service.businessServices;
 using Ecommerce.Service.MappingProfiles;
@@ -11,6 +13,7 @@ using Ecommerce.Shared.Common.ErrorModels;
 using ECommerce.Web.Custom_MiddleWares;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace ECommerce.Web
 {
@@ -32,8 +35,8 @@ namespace ECommerce.Web
             //builder.Services.AddAutoMapper(typeof(Program));
 
             builder.Services.AddScoped<IdataSeed, DataSeeeding>();
-            builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
-            builder.Services.AddAutoMapper(m=>m.AddProfile(new ProjectProfiles(builder.Configuration)));//3shan ash8l el sora 
+            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+            builder.Services.AddAutoMapper(m => m.AddProfile(new ProjectProfiles(builder.Configuration)));//3shan ash8l el sora 
             builder.Services.AddScoped<IServiceManger, ServiceManger>();
             builder.Services.Configure<ApiBehaviorOptions>(
                 (options) => options.InvalidModelStateResponseFactory = (context) =>
@@ -41,8 +44,8 @@ namespace ECommerce.Web
                     var errors = context.ModelState.Where(e => e.Value.Errors.Any())
                     .Select(e => new PramValidationError()
                     {
-                            Field = e.Key,
-                            Errors =e.Value.Errors.Select(e => e.ErrorMessage)
+                        Field = e.Key,
+                        Errors = e.Value.Errors.Select(e => e.ErrorMessage)
                     });
 
                     var Response = new PramValidationsReturn()
@@ -53,6 +56,13 @@ namespace ECommerce.Web
                 }
 
 
+            );
+
+            builder.Services.AddScoped<ICartRepo, CartRepo>();
+            builder.Services.AddSingleton<IConnectionMultiplexer>((_) => 
+                //creating a Func
+                 ConnectionMultiplexer.Connect(builder.Configuration.GetConnectionString("RedisConnection"))
+            
             );
             //builder.Services.AddScoped<>
             var app = builder.Build();

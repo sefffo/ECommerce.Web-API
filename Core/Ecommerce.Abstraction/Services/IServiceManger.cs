@@ -9,5 +9,6 @@ namespace Ecommerce.Abstraction.Services
     public interface IServiceManger
     {
         public IProductService ProductServices { get; } //el opbject hytl3 bs mn el service manger 
+        public ICartService CartService { get; }
     }
 }
