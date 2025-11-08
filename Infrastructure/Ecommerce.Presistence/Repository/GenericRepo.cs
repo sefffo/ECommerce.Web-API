@@ -97,5 +97,15 @@ namespace Ecommerce.Presistence.Repository
 
            
         }
+
+        public async Task<int> GetCountWithSpecificatonsAsync(ISpecification<TEntity, TKey> Specifications)
+        {
+            //var baseQuery = context.Set<TEntity>().AsQueryable();
+
+            var Query = SpecificationEvaluator.CreateQuery(context.Set<TEntity>(), Specifications);
+
+            return await Query.CountAsync();
+         
+        }
     }
 }

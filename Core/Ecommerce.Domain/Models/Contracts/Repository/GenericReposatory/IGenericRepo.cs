@@ -20,6 +20,7 @@ namespace Ecommerce.Domain.Models.Contracts.Repository.GenericReposatory
         Task<IEnumerable<TEntity>> GetAllWithSpecificatonsAsync(ISpecification<TEntity,TKey> Specifications); // we get all entities that match the specifications
         Task<TEntity> GetByIdWithSpecificationsAync(ISpecification<TEntity, TKey> Specifications); // we get a single entity that match the specifications
 
+        Task<int> GetCountWithSpecificatonsAsync(ISpecification<TEntity, TKey> Specifications); // we get all entities that match the specifications
 
 
     }

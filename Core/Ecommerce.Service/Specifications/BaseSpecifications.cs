@@ -69,9 +69,12 @@ namespace Ecommerce.Service.Specifications
 
         public void ApplyPagination(int PagexIndex,int PageSize)
         {
-            isPaginable = true;
+            isPaginable = true; //m3naha en mhtag el pagination 
             take = PageSize;
-            skip = (PagexIndex-1)*PageSize;
+            skip = (PagexIndex-1)*PageSize; //(3-1)*10 = skip  first 20
+            //pageIndex = 3 
+            //pageSize = 10 
+
 
 
         }

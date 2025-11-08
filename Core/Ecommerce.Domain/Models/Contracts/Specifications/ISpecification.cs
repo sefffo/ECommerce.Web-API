@@ -30,10 +30,11 @@ namespace Ecommerce.Domain.Models.Contracts.Specifications
 
         //pagination 
 
-        int take { get; }
-        int skip { get; }
+        int take { get; } //bya5do el rakm el ana mhtago 
+        int skip { get; } //bya5do el rakm el ana mhtago 
 
         bool isPaginable { get; set; } //da el hy2oly amla wla la 
+        //3shan y7dd emta hahtago 
 
 
 

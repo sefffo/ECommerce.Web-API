@@ -7,6 +7,9 @@ using Ecommerce.Presistence.Data_Seed;
 using Ecommerce.Presistence.UnitOfWork;
 using Ecommerce.Service.businessServices;
 using Ecommerce.Service.MappingProfiles;
+using Ecommerce.Shared.Common.ErrorModels;
+using ECommerce.Web.Custom_MiddleWares;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Web
@@ -32,6 +35,25 @@ namespace ECommerce.Web
             builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
             builder.Services.AddAutoMapper(m=>m.AddProfile(new ProjectProfiles(builder.Configuration)));//3shan ash8l el sora 
             builder.Services.AddScoped<IServiceManger, ServiceManger>();
+            builder.Services.Configure<ApiBehaviorOptions>(
+                (options) => options.InvalidModelStateResponseFactory = (context) =>
+                {
+                    var errors = context.ModelState.Where(e => e.Value.Errors.Any())
+                    .Select(e => new PramValidationError()
+                    {
+                            Field = e.Key,
+                            Errors =e.Value.Errors.Select(e => e.ErrorMessage)
+                    });
+
+                    var Response = new PramValidationsReturn()
+                    {
+                        Errors = errors
+                    };
+                    return new BadRequestObjectResult(Response);
+                }
+
+
+            );
             //builder.Services.AddScoped<>
             var app = builder.Build();
 
@@ -47,6 +69,8 @@ namespace ECommerce.Web
             {
                 app.MapOpenApi();
             }
+
+            app.UseMiddleware<CustomExceptionMiddleWare>();
 
             app.UseHttpsRedirection();
 

@@ -34,6 +34,8 @@ namespace Ecommerce.Presistence
                 query = query.OrderByDescending(specification.OrderByDesc);
             }
 
+
+            //3shan lw true y3ml el pagination 
             if(specification.isPaginable)
             {
                 query = query.Skip(specification.skip).Take(specification.take);

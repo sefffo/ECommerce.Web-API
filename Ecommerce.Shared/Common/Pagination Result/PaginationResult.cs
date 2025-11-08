@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Shared.Common.Pagination_Result
 {
+    //the class that goes as end point for pagination on every class 
     public class PaginationResult<TEntity>
     {
         public PaginationResult(int pageIndex, int pageSize, int totalCount, IEnumerable<TEntity> data)

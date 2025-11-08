@@ -12,8 +12,14 @@
         public ProductSortingWay? SortingWay { get; set; }
 
         public string? SearchValue { get; set; }
-        public int PageIndex { get; set; } = 1;
 
+
+
+        //pagination validations 
+
+        //lazem ab3t el hagat de w astlemha mn el controller
+        public int PageIndex { get; set; } = 1;//incase the front end did not send any index or size so we used a default = 1
+        //full property 
         private int PageSize = DefaultSize;
 
         public int pageSize
@@ -23,7 +29,7 @@
                 return PageSize;
             }
             set
-            {
+            {           // el mtbasya mn el controller
                 PageSize = value > MaxSize ? MaxSize : value;
             }
         }

@@ -27,7 +27,7 @@ namespace Ecommerce.Service.Specifications
             //each time we make a specification we extend the base specifications
             //and craete its own one by adding includes , criterias , order bys , paginations ...
 
-            ApplyPagination(productQueryPrams.PageIndex, productQueryPrams.pageSize);
+            ApplyPagination(productQueryPrams.PageIndex, productQueryPrams.pageSize); //size 
 
 
 

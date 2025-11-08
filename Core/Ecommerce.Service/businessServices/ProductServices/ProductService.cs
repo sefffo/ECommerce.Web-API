@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Ecommerce.Abstraction.Services;
+using Ecommerce.Domain.Exceptions;
 using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
 using Ecommerce.Service.Specifications;
@@ -21,19 +22,27 @@ namespace Ecommerce.Service.businessServices.ProductServices
         {
             //we must use specifications to get products with their types and brands
             //aslo we must add the the spec in the repository method
-            var spec = new  ProductSpecifications(productQueryPrams); //create specification instance
+            var spec = new ProductSpecifications(productQueryPrams); //create specification instance
             var repo = unitOfWork.GetRepository<Product, int>();
             var products = await repo.GetAllWithSpecificatonsAsync(spec);
             var data = mapper.Map<IEnumerable<Product>, IEnumerable<ProductDto>>(products);
-
+           
             var PageSize = data.Count();
-            return new PaginationResult<ProductDto>(productQueryPrams.PageIndex,PageSize,0, data);
+            var countSpec = new ProductCountSpecification(productQueryPrams);
+            var count = await unitOfWork.GetRepository<Product, int>().GetCountWithSpecificatonsAsync(countSpec);
+                                                       //index                  size    count  data 
+            return new PaginationResult<ProductDto>(productQueryPrams.PageIndex, PageSize, count, data); //shkl el return 
+                                                                //el fekra mn el count el 7sba swa2 mtfltar aw la 
         }
         public async Task<ProductDto> GetProductByIdAsync(int id)
         {
             var spec = new ProductSpecifications(id);
             var repo = unitOfWork.GetRepository<Product, int>();
             var product = await repo.GetByIdWithSpecificationsAync(spec);
+            if(product is null)
+            {
+                throw new ProductNotFound(id);
+            }
             var ProductDto = mapper.Map<Product, ProductDto>(product);
             return ProductDto;
         }
