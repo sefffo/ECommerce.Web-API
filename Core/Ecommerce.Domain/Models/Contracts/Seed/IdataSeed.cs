@@ -9,5 +9,6 @@ namespace Ecommerce.Domain.Models.Contracts.Seed
     public interface IdataSeed
     {
         Task DataSeedAsync();
+        Task IdentityInitializAsync();
     }
 }
