@@ -8,12 +8,14 @@ namespace ECommerce.Web.Custom_MiddleWares
     public class CustomExceptionMiddleWare
     {
         private readonly RequestDelegate next;
+        
 
         public CustomExceptionMiddleWare(RequestDelegate Next)
         {
             next = Next;
+            
         }
-        public async Task Invoke(HttpContext context, ILogger<CustomExceptionMiddleWare> logger)
+        public async Task Invoke(HttpContext context,ILogger<CustomExceptionMiddleWare> logger)
         {
             try
             {
@@ -32,32 +34,40 @@ namespace ECommerce.Web.Custom_MiddleWares
             catch (Exception ex)
             {
                 logger.LogError(ex, ex.Message);
-                //header response
-                //set Satus Code 
+                //responser body 
+                var Response = new ErrorToReturn()
+                {
+                    //statusCode = context.Response.StatusCode,
+                    Message = ex.Message
+                };
+                
                 context.Response.StatusCode = ex switch
                 {
                     NotFoundException => StatusCodes.Status404NotFound,
+                    UnAuthorizedException => StatusCodes.Status401Unauthorized,
+                    BadRequestException badreq => GetBadRequestErrors(badreq,Response),
 
                     _ => StatusCodes.Status500InternalServerError
 
                 };
-                //Set Content Type For response 
+                
+                Response.statusCode = context.Response.StatusCode;
+
+
 
                 context.Response.ContentType = "application/json"; //elrage3 json
 
-                //responser body 
-
-                var Response = new ErrorToReturn()
-                {
-                    statusCode = context.Response.StatusCode,
-                    Message = ex.Message
-                };
-
-                //return as json 
+    
 
                 await context.Response.WriteAsJsonAsync(Response);
 
             }
+        }
+
+        private int GetBadRequestErrors(BadRequestException exception, ErrorToReturn response) 
+        {
+            response.Errors = exception.Errors;
+            return StatusCodes.Status400BadRequest;
         }
     }
 }

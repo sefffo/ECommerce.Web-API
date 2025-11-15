@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Presistence.Identity.Models
+namespace Ecommerce.Domain.Models.Identity
 {
     public class Address
     {

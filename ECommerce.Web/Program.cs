@@ -3,19 +3,24 @@ using Ecommerce.Abstraction.Services;
 using Ecommerce.Domain.Models.Contracts.RedisInMemoryRepository;
 using Ecommerce.Domain.Models.Contracts.Seed;
 using Ecommerce.Domain.Models.Contracts.UOW;
+using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Presistence.Contexts;
 using Ecommerce.Presistence.Data_Seed;
-using Ecommerce.Presistence.Identity.Models;
+//using Ecommerce.Presistence.Identity.Models;
 using Ecommerce.Presistence.Repository;
 using Ecommerce.Presistence.UnitOfWork;
 using Ecommerce.Service.businessServices;
 using Ecommerce.Service.MappingProfiles;
 using Ecommerce.Shared.Common.ErrorModels;
 using ECommerce.Web.Custom_MiddleWares;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using StackExchange.Redis;
+using System.Text;
 
 namespace ECommerce.Web
 {
@@ -72,6 +77,35 @@ namespace ECommerce.Web
             builder.Services.AddScoped<ICartRepo, CartRepo>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<StoreIdntityDbContext>();
 
+
+            builder.Services.AddAuthentication(config =>
+            {
+                config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = builder.Configuration.GetSection("JWTOptions")["Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration.GetSection("JWTOptions")["Audience"],
+                    ValidateLifetime = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JWTOptions")["SecurityKey"]))
+
+                };
+            });
+            
+
+
+
+
+
+
+
+
+
             //builder.Services.AddScoped<>
             var app = builder.Build();
 
@@ -100,6 +134,7 @@ namespace ECommerce.Web
             app.UseMiddleware<CustomExceptionMiddleWare>();
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

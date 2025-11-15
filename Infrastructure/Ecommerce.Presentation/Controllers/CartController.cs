@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Abstraction.Services;
 using Ecommerce.Shared.DTOs.CartDto_s;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace Ecommerce.Presentation.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[Controller]")] //routing el endpoint
     public class CartController(IServiceManger manger) : ControllerBase
     {

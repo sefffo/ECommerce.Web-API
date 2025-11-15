@@ -2,8 +2,11 @@
 using Ecommerce.Abstraction.Services;
 using Ecommerce.Domain.Models.Contracts.RedisInMemoryRepository;
 using Ecommerce.Domain.Models.Contracts.UOW;
+using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Service.businessServices.CartServices;
 using Ecommerce.Service.businessServices.ProductServices;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Ecommerce.Service.businessServices
 {
-    public class ServiceManger(IUnitOfWork unitOfWork , IMapper mapper , ICartRepo Repo) : IServiceManger
+    public class ServiceManger(IUnitOfWork unitOfWork , IMapper mapper , ICartRepo Repo,UserManager<ApplicationUser>userManager,IConfiguration configuration) : IServiceManger
     {
 
         //Controller → ServiceManager → Business Services → UnitOfWork → Repositories → Database
@@ -29,6 +32,10 @@ namespace Ecommerce.Service.businessServices
      
 
         public ICartService CartService => service.Value;
+
+
+        private readonly Lazy<IAuthenticationService> LazyAuthenticationService = new Lazy<IAuthenticationService>(() => new Ecommerce.Service.businessServices.AuhenticationService(userManager, configuration,mapper));
+        public IAuthenticationService AuthenticationService => LazyAuthenticationService.Value;
 
 
 

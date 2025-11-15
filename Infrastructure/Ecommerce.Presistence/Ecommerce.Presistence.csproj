@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\Core\Ecommerce.Service\Ecommerce.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Identity\Models\" />
+  </ItemGroup>
+
 </Project>

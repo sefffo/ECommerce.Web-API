@@ -10,5 +10,7 @@ namespace Ecommerce.Shared.Common.ErrorModels
     {
         public int statusCode { set; get; }
         public string Message { get; set; } = null!;
+
+        public List<string>? Errors { get; set; }
     }
 }

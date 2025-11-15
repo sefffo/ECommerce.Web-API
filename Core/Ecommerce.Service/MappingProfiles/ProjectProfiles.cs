@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using Ecommerce.Domain.Models.Cart;
+using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Domain.Models.Products;
 using Ecommerce.Shared.DTOs.CartDto_s;
+using Ecommerce.Shared.DTOs.IdentityDto_s;
 using Ecommerce.Shared.DTOs.ProductDro_s;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -29,6 +31,7 @@ namespace Ecommerce.Service.MappingProfiles
 
             CreateMap<UserCart, CartDto>().ReverseMap();
             CreateMap<CartItem, CartItemDto>().ReverseMap(); //must be done because it happens internally inside of teh usercart to cartdto mapping 
+            CreateMap<Address,AddressDto>().ReverseMap();
 
 
         }

@@ -3,6 +3,7 @@ using Ecommerce.Shared.Common;
 using Ecommerce.Shared.Common.Pagination_Result;
 using Ecommerce.Shared.Common.Specification_Pattern_Enhancment;
 using Ecommerce.Shared.DTOs.ProductDro_s;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 namespace Ecommerce.Presentation.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[Controller]")] //routing el endpoint
     public class ProductController(IServiceManger manger) : ControllerBase
     {

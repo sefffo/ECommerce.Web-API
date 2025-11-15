@@ -1,7 +1,8 @@
 ﻿using Ecommerce.Domain.Models.Contracts.Seed;
+using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Domain.Models.Products;
 using Ecommerce.Presistence.Contexts;
-using Ecommerce.Presistence.Identity.Models;
+//using Ecommerce.Presistence.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;

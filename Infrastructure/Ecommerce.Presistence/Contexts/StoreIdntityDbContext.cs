@@ -1,4 +1,5 @@
-﻿using Ecommerce.Presistence.Identity.Models;
+﻿using Ecommerce.Domain.Models.Identity;
+//using Ecommerce.Presistence.Identity.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
