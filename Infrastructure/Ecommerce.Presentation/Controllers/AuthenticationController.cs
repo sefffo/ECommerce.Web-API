@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Abstraction.Services;
 using Ecommerce.Shared.DTOs.IdentityDto_s;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,19 +22,21 @@ namespace Ecommerce.Presentation.Controllers
             var User = await manger.AuthenticationService.LoginAsync(dto);
             return Ok(User);
         }
+
         [HttpPost("Register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto dto)
         {
             var User = await manger.AuthenticationService.RegisterAsync(dto);
             return Ok(User);
         }
-
+        [Authorize]
         [HttpGet("CheckEmail")]
         public async Task<ActionResult<bool>> CheckEmail(string email)
         {
             var user = await manger.AuthenticationService.CheckEmailAsync(email);
             return Ok(user);
         }
+        [Authorize]
         [HttpGet("CurrentUser")]
         public async Task<ActionResult<UserDto>> GetCurrentUser()
         {
@@ -41,6 +44,7 @@ namespace Ecommerce.Presentation.Controllers
             var user = await manger.AuthenticationService.GetCurrentUserAsync(email);
             return Ok(user);
         }
+        [Authorize]
         [HttpGet("Address")]
         public async Task<ActionResult<UserDto>> GetCurrentUserAddress()
         {
@@ -48,6 +52,7 @@ namespace Ecommerce.Presentation.Controllers
             var address = await manger.AuthenticationService.GetCurrentUserAddressAsync(email);
             return Ok(address);
         }
+        [Authorize]
         [HttpPut("Address")]
         public async Task<ActionResult<AddressDto>> UpdateCurrentUserAddress(AddressDto dto)
         {
