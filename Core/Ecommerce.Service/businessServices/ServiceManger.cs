@@ -25,17 +25,25 @@ namespace Ecommerce.Service.businessServices
                  = new Lazy<IProductService>(() => new Ecommerce.Service.businessServices.ProductServices.ProductService(unitOfWork, mapper));
         public IProductService ProductServices => LazyProjectService.Value;
 
+
+
+
+
         private readonly  Lazy<ICartService> service
             = new Lazy<ICartService>(() => new CartService(Repo, mapper));
-
-
-     
-
         public ICartService CartService => service.Value;
+
+
 
 
         private readonly Lazy<IAuthenticationService> LazyAuthenticationService = new Lazy<IAuthenticationService>(() => new Ecommerce.Service.businessServices.AuhenticationService(userManager, configuration,mapper));
         public IAuthenticationService AuthenticationService => LazyAuthenticationService.Value;
+
+
+
+
+        private readonly Lazy<IOrderService> LazyOrderService = new Lazy<IOrderService>(() => new Ecommerce.Service.businessServices.OrderSevices.OrderSevice(mapper, Repo,unitOfWork));
+        public IOrderService OrderService => LazyOrderService.Value;
 
 
 

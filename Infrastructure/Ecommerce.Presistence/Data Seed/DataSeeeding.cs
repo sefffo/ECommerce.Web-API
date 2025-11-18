@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Domain.Models.Contracts.Seed;
 using Ecommerce.Domain.Models.Identity;
+using Ecommerce.Domain.Models.Orders;
 using Ecommerce.Domain.Models.Products;
 using Ecommerce.Presistence.Contexts;
 //using Ecommerce.Presistence.Identity.Models;
@@ -71,6 +72,15 @@ namespace Ecommerce.Presistence.Data_Seed
                 }
             }
 
+            if (!context.DeliveryMethods.Any())
+            {
+                var deliveryData = await File.ReadAllTextAsync(@"..\Infrastructure\Ecommerce.Presistence\Data\delivery.json");
+
+                var deliveryMethods = JsonSerializer.Deserialize<List<DeliveryMethod>>(deliveryData);
+
+                if (deliveryMethods is not null && deliveryMethods.Any())
+                    context.DeliveryMethods.AddRange(deliveryMethods);
+            }
             context.SaveChanges();
         }
 
