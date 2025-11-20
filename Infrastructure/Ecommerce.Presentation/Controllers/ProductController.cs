@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Abstraction.Services;
+using Ecommerce.Presentation.Attributes;
 using Ecommerce.Shared.Common;
 using Ecommerce.Shared.Common.Pagination_Result;
 using Ecommerce.Shared.Common.Specification_Pattern_Enhancment;
@@ -28,25 +29,27 @@ namespace Ecommerce.Presentation.Controllers
 
         //get all products 
         [HttpGet]
-                                                                            //! 3shan bnst5dm complex query parameters
+        [Cache(4200)]                                                               //! 3shan bnst5dm complex query parameters
         public async Task<ActionResult<PaginationResult<ProductDto>>> GetAllProducts([FromQuery]ProductQueryPrams productQueryPrams)
         {
             var products = await manger.ProductServices.GetProductsAsync(productQueryPrams);
             return Ok(products);//hywl el data as json with the 200 status code
         }
-
+        [Cache(1000)]
         [HttpGet("Brands")]
         public async Task<ActionResult<IEnumerable<ProductBrandDto>>> GetAllProductBrands()
         {
             var brands = await manger.ProductServices.GetBrandsAsync();
             return Ok(brands);//hywl el data as json with the 200 status code
         }
+        [Cache(1000)]
         [HttpGet("Types")]
         public async Task<ActionResult<IEnumerable<TypeDto>>> GetAllProductTypes()
         {
             var types = await manger.ProductServices.GetTypesAsync();
             return Ok(types);//hywl el data as json with the 200 status code
         }
+        [Cache(1000)]
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductDto>> GetProductById(int id)
         {

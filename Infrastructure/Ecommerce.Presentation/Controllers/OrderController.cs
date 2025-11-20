@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Abstraction.Services;
+using Ecommerce.Presentation.Attributes;
 using Ecommerce.Shared.DTOs.OrderDto_s;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ namespace Ecommerce.Presentation.Controllers
             return Ok(DMs);
         }
         [HttpGet("AllOrders")]
+        [Cache(4200)]
         public async Task<ActionResult<IEnumerable<OrderToReturnDto>>> GetAllOrders()
         {
             var Email = User.FindFirstValue (ClaimTypes.Email);
@@ -40,6 +42,7 @@ namespace Ecommerce.Presentation.Controllers
             return Ok(Orders);
         }
         [HttpGet]
+        [Cache(1000)]
         public async Task<ActionResult<OrderToReturnDto>> GetOrderById(Guid Orderid)
         {
             var Order = await manger.OrderService.GetOrderById(Orderid);

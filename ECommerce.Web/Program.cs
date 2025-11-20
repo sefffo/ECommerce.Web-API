@@ -1,6 +1,7 @@
 
 using Ecommerce.Abstraction.Services;
 using Ecommerce.Domain.Models.Contracts.RedisInMemoryRepository;
+using Ecommerce.Domain.Models.Contracts.Repository;
 using Ecommerce.Domain.Models.Contracts.Seed;
 using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Identity;
@@ -76,6 +77,8 @@ namespace ECommerce.Web
 
             builder.Services.AddScoped<ICartRepo, CartRepo>();
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<StoreIdntityDbContext>();
+            builder.Services.AddScoped<ICacheRepo, CacheRepo>();
+            builder.Services.AddScoped<ICacheService, CacheService>();
 
 
             builder.Services.AddAuthentication(config =>
