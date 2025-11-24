@@ -34,5 +34,65 @@ Soon there will be other new Features
 
 # 🧱 Architecture Overview
 
-This project follows a **Clean Architecture** structure:
+Technologies: .NET 9, C#, Entity Framework Core, JWT Authentication, AutoMapper, Stripe, Redis
+
+Project Structure Overview:
+
+Core Project (ECommerce.Core)
+
+Abstraction: Interfaces for Services (IProductService, ICartService, IOrderService, etc.)
+
+Domain: Base entities, exceptions, models (Products, Orders, Cart, Identity)
+
+Contracts & UOW: Generic repositories, Unit of Work, specifications, data seeding
+
+Service Project (Ecommerce.Service)
+
+Business Services: Implementation of authentication, caching, cart, orders, payment, and product services
+
+Mapping Profiles: AutoMapper profiles for DTOs
+
+Specifications: Business rules and query specifications
+
+Shared Project (Ecommerce.Shared)
+
+DTOs: Data Transfer Objects for Products, Cart, Orders, Identity
+
+Common: Enums, sorting, and utility classes
+
+Error Models: Standardized error responses
+
+Pagination & Specifications Enhancements
+
+Web Project (ECommerce.Web)
+
+Configuration: appsettings.json, Program.cs, JWT Auth setup
+
+Custom Middlewares: Exception handling middleware
+
+Bin/Obj: Build output and dependency libraries
+
+Other Files
+
+Postman Collection: ecommerce-postman.json.txt
+
+Project Structure Document: structure.txt
+
+Key Features
+
+Fully layered architecture using Clean Architecture principles
+
+Unit of Work and Specification Pattern applied for database operations
+
+JWT Authentication and Authorization implemented
+
+Redis caching for cart and frequently accessed data
+
+Stripe Payment Integration
+
+DTOs & AutoMapper for mapping between entities and API responses
+
+Exception handling using custom middleware
+
+
 
