@@ -47,6 +47,12 @@ namespace Ecommerce.Service.businessServices
 
 
 
+        private readonly Lazy<IPaymentService> LazyPaymentService = new Lazy<IPaymentService>(() => new Ecommerce.Service.businessServices.PaymentService.PaymentService(configuration,Repo,unitOfWork,mapper));
+
+        public IPaymentService PaymentService => LazyPaymentService.Value;
+
+
+
 
 
 

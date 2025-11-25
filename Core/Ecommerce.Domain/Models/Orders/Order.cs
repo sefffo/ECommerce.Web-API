@@ -15,13 +15,14 @@ namespace Ecommerce.Domain.Models.Orders
                 
         }
 
-        public Order(string userEmail, OrderAddress address, DeliveryMethod deliveryMethod, ICollection<OrderItem> items, decimal subTotal)
+        public Order(string userEmail, OrderAddress address, DeliveryMethod deliveryMethod, ICollection<OrderItem> items, decimal subTotal,string paymentIntentId)
         {
             UserEmail = userEmail;
             Address = address;
             DeliveryMethod = deliveryMethod;
             Items = items;
             SubTotal = subTotal;
+            PaymentIntentId = paymentIntentId;
         }
 
         //the big entity which can collect all the order aspects in the folder 
@@ -49,6 +50,9 @@ namespace Ecommerce.Domain.Models.Orders
 
         //public decimal Total { get; set; } //El tax + Delivery on the sub total which they can be changble throw the time 
         public decimal Total () =>  SubTotal + DeliveryMethod.Price;
+
+
+        public string PaymentIntentId { get; set; }
         
     }
 }
