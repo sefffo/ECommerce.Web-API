@@ -25,19 +25,6 @@ namespace Ecommerce.Service.businessServices.OrderSevices
             var OdrderAddress = mapper.Map<AddressDto, OrderAddress>(orderDto.Address);
             //get Cart
             var Cart = await cartRepo.GetCartAsync(orderDto.CartId) ?? throw new CartNotFound(orderDto.CartId);
-
-            ArgumentNullException.ThrowIfNullOrEmpty(Cart.PaymentIntentId);//check if the intent is valid
-
-            var OrderRepo = unitOfWork.GetRepository<Order, Guid>();
-
-            var Spec = new OrderIntentCheck(Cart.PaymentIntentId);
-
-            var IsOrderExsisted = await OrderRepo.GetByIdWithSpecificationsAync(Spec);
-
-            if(IsOrderExsisted is not null)
-            {
-                OrderRepo.delete(IsOrderExsisted);
-            }
             //create order item list 
             List<OrderItem> orderItems = [];
             //get product repo 3shna a7na hndifm 3ntrik el id mn gwa 3ndi 
@@ -65,7 +52,7 @@ namespace Ecommerce.Service.businessServices.OrderSevices
             //sub total
             var SubTotal = orderItems.Sum(p => p.Price * p.Quantity);
             //gm3 el Order bta3k b2a 
-            var order = new Order(Email, OdrderAddress, DeliveryMethod, orderItems, SubTotal,Cart.PaymentIntentId);
+            var order = new Order(Email, OdrderAddress, DeliveryMethod, orderItems, SubTotal);
             unitOfWork.GetRepository<Order,Guid>().add(order);
             await unitOfWork.SaveChangesAsync();
             return mapper.Map<Order,OrderToReturnDto>(order);

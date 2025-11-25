@@ -1,5 +1,4 @@
 ﻿using Ecommerce.Abstraction.Services;
-using Ecommerce.Presentation.Attributes;
 using Ecommerce.Shared.DTOs.CartDto_s;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +17,6 @@ namespace Ecommerce.Presentation.Controllers
     {
 
         [HttpGet]
-        [Cache(100000)]
         public async Task<ActionResult<CartDto>> GetCart( string Key)
         {
             var Cart = await manger.CartService.GetCartAsync(Key);

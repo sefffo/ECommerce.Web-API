@@ -15,17 +15,6 @@ namespace Ecommerce.Domain.Models.Cart
         public string Id { get; set; }
         public ICollection<CartItem> Items { get; set; }
 
-        public string? ClientSecret { get; set; }
-
-        public string? PaymentIntentId { get; set; }
-
-
-        //3shan y3rf hydf3 ezay abl el checkout
-        public int? DeliveryMethodId { get; set; }
-
-        public decimal? ShippingPrice { get; set; }
-
-
 
 
     }

@@ -23,9 +23,5 @@ namespace Ecommerce.Service.Specifications
             AddInclude(o => o.DeliveryMethod);
 
         }
-
-        
-
-
     }
 }
