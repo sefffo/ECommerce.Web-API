@@ -8,6 +8,7 @@
     <Project Path="Infrastructure/Ecommerce.Presentation/Ecommerce.Presentation.csproj" />
     <Project Path="Infrastructure/Ecommerce.Presistence/Ecommerce.Presistence.csproj" />
   </Folder>
+  <Project Path="AdminDashBoardV1.0.0/AdminDashBoardV1.0.0.csproj" Id="5808fe56-1958-458a-9845-f7db37614a37" />
   <Project Path="Ecommerce.Shared/Ecommerce.Shared.csproj" />
   <Project Path="ECommerce.Web/ECommerce.Web.csproj" />
 </Solution>
