@@ -1,647 +1,309 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard";
+	ViewData["Title"] = "Dashboard";
 }
 
 <div class="dashboard-home">
-    <!-- Page Header -->
-    <div class="page-header mb-4">
-        <div>
-            <h1 class="mb-2">
-                <i class="fas fa-chart-line me-2"></i>Dashboard Overview
-            </h1>
-            <p class="text-muted">Welcome back! Here's what's happening with your store today.</p>
-        </div>
-        <div class="header-actions">
-            <button class="btn btn-outline-primary">
-                <i class="fas fa-download me-2"></i>Export Report
-            </button>
-        </div>
-    </div>
+	<!-- Page Header -->
+	<div class="page-header mb-4">
+		<div>
+			<h1 class="mb-2">
+				<i class="fas fa-chart-line me-2"></i>Dashboard Overview
+			</h1>
+			<p class="text-muted">Welcome back! Here's what's happening with your store today.</p>
+		</div>
+		<div class="header-actions">
+			<button class="btn btn-outline-primary">
+				<i class="fas fa-download me-2"></i>Export Report
+			</button>
+		</div>
+	</div>
 
-    <!-- Statistics Cards -->
-    <div class="row g-4 mb-4">
-        <div class="col-xl-3 col-md-6">
-            <div class="stats-card">
-                <div class="stats-icon bg-gradient-primary">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-                <div class="stats-content">
-                    <h6>Total Sales</h6>
-                    <h3>$54,239</h3>
-                    <div class="stats-badge success">
-                        <i class="fas fa-arrow-up"></i> 12.5%
-                    </div>
-                </div>
-            </div>
-        </div>
+	<!-- Statistics Cards -->
+	<div class="row g-4 mb-4">
+		<div class="col-xl-3 col-md-6">
+			<div class="stats-card">
+				<div class="stats-icon bg-gradient-primary">
+					<i class="fas fa-shopping-cart"></i>
+				</div>
+				<div class="stats-content">
+					<h6>Total Sales</h6>
+					<h3>$54,239</h3>
+					<div class="stats-badge success">
+						<i class="fas fa-arrow-up"></i> 12.5%
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-xl-3 col-md-6">
-            <div class="stats-card">
-                <div class="stats-icon bg-gradient-success">
-                    <i class="fas fa-users"></i>
-                </div>
-                <div class="stats-content">
-                    <h6>New Customers</h6>
-                    <h3>2,456</h3>
-                    <div class="stats-badge success">
-                        <i class="fas fa-arrow-up"></i> 8.3%
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="col-xl-3 col-md-6">
+			<div class="stats-card">
+				<div class="stats-icon bg-gradient-success">
+					<i class="fas fa-users"></i>
+				</div>
+				<div class="stats-content">
+					<h6>New Customers</h6>
+					<h3>2,456</h3>
+					<div class="stats-badge success">
+						<i class="fas fa-arrow-up"></i> 8.3%
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-xl-3 col-md-6">
-            <div class="stats-card">
-                <div class="stats-icon bg-gradient-warning">
-                    <i class="fas fa-box"></i>
-                </div>
-                <div class="stats-content">
-                    <h6>Total Products</h6>
-                    <h3>342</h3>
-                    <div class="stats-badge neutral">
-                        <i class="fas fa-minus"></i> 0%
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="col-xl-3 col-md-6">
+			<div class="stats-card">
+				<div class="stats-icon bg-gradient-warning">
+					<i class="fas fa-box"></i>
+				</div>
+				<div class="stats-content">
+					<h6>Total Products</h6>
+					<h3>342</h3>
+					<div class="stats-badge neutral">
+						<i class="fas fa-minus"></i> 0%
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-xl-3 col-md-6">
-            <div class="stats-card">
-                <div class="stats-icon bg-gradient-danger">
-                    <i class="fas fa-chart-bar"></i>
-                </div>
-                <div class="stats-content">
-                    <h6>Revenue</h6>
-                    <h3>$23,890</h3>
-                    <div class="stats-badge danger">
-                        <i class="fas fa-arrow-down"></i> 3.2%
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="col-xl-3 col-md-6">
+			<div class="stats-card">
+				<div class="stats-icon bg-gradient-danger">
+					<i class="fas fa-chart-bar"></i>
+				</div>
+				<div class="stats-content">
+					<h6>Revenue</h6>
+					<h3>$23,890</h3>
+					<div class="stats-badge danger">
+						<i class="fas fa-arrow-down"></i> 3.2%
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-    <!-- Charts Row -->
-    <div class="row g-4 mb-4">
-        <div class="col-xl-8">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h5><i class="fas fa-chart-line me-2"></i>Sales Overview</h5>
-                    <div class="chart-actions">
-                        <button class="btn btn-sm btn-outline-secondary">Month</button>
-                        <button class="btn btn-sm btn-outline-secondary active">Week</button>
-                        <button class="btn btn-sm btn-outline-secondary">Day</button>
-                    </div>
-                </div>
-                <canvas id="salesChart" height="80"></canvas>
-            </div>
-        </div>
+	<!-- Charts Row -->
+	<div class="row g-4 mb-4">
+		<div class="col-xl-8">
+			<div class="chart-card">
+				<div class="chart-header">
+					<h5><i class="fas fa-chart-line me-2"></i>Sales Overview</h5>
+					<div class="chart-actions">
+						<button class="btn btn-sm btn-outline-secondary">Month</button>
+						<button class="btn btn-sm btn-outline-secondary active">Week</button>
+						<button class="btn btn-sm btn-outline-secondary">Day</button>
+					</div>
+				</div>
+				<canvas id="salesChart" height="80"></canvas>
+			</div>
+		</div>
 
-        <div class="col-xl-4">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h5><i class="fas fa-pie-chart me-2"></i>Product Categories</h5>
-                </div>
-                <canvas id="categoryChart"></canvas>
-            </div>
-        </div>
-    </div>
+		<div class="col-xl-4">
+			<div class="chart-card">
+				<div class="chart-header">
+					<h5><i class="fas fa-pie-chart me-2"></i>Product Categories</h5>
+				</div>
+				<canvas id="categoryChart"></canvas>
+			</div>
+		</div>
+	</div>
 
-    <!-- Recent Activity -->
-    <div class="row g-4">
-        <div class="col-xl-6">
-            <div class="activity-card">
-                <div class="activity-header">
-                    <h5><i class="fas fa-clock me-2"></i>Recent Orders</h5>
-                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right ms-1"></i></a>
-                </div>
-                <div class="activity-list">
-                    <div class="activity-item">
-                        <div class="activity-icon bg-success">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="activity-details">
-                            <h6>Order #3847 completed</h6>
-                            <p>Customer: John Smith - $234.00</p>
-                        </div>
-                        <span class="activity-time">2 min ago</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon bg-warning">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <div class="activity-details">
-                            <h6>Order #3846 pending</h6>
-                            <p>Customer: Sarah Johnson - $156.50</p>
-                        </div>
-                        <span class="activity-time">15 min ago</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon bg-success">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="activity-details">
-                            <h6>Order #3845 completed</h6>
-                            <p>Customer: Mike Davis - $89.99</p>
-                        </div>
-                        <span class="activity-time">1 hour ago</span>
-                    </div>
-                    <div class="activity-item">
-                        <div class="activity-icon bg-danger">
-                            <i class="fas fa-times"></i>
-                        </div>
-                        <div class="activity-details">
-                            <h6>Order #3844 cancelled</h6>
-                            <p>Customer: Emma Wilson - $312.00</p>
-                        </div>
-                        <span class="activity-time">3 hours ago</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+	<!-- Recent Activity -->
+	<div class="row g-4">
+		<div class="col-xl-6">
+			<div class="activity-card">
+				<div class="activity-header">
+					<h5><i class="fas fa-clock me-2"></i>Recent Orders</h5>
+					<a href="#" class="view-all">View All <i class="fas fa-arrow-right ms-1"></i></a>
+				</div>
+				<div class="activity-list">
+					<div class="activity-item">
+						<div class="activity-icon bg-success">
+							<i class="fas fa-check"></i>
+						</div>
+						<div class="activity-details">
+							<h6>Order #3847 completed</h6>
+							<p>Customer: John Smith - $234.00</p>
+						</div>
+						<span class="activity-time">2 min ago</span>
+					</div>
+					<div class="activity-item">
+						<div class="activity-icon bg-warning">
+							<i class="fas fa-hourglass-half"></i>
+						</div>
+						<div class="activity-details">
+							<h6>Order #3846 pending</h6>
+							<p>Customer: Sarah Johnson - $156.50</p>
+						</div>
+						<span class="activity-time">15 min ago</span>
+					</div>
+					<div class="activity-item">
+						<div class="activity-icon bg-success">
+							<i class="fas fa-check"></i>
+						</div>
+						<div class="activity-details">
+							<h6>Order #3845 completed</h6>
+							<p>Customer: Mike Davis - $89.99</p>
+						</div>
+						<span class="activity-time">1 hour ago</span>
+					</div>
+					<div class="activity-item">
+						<div class="activity-icon bg-danger">
+							<i class="fas fa-times"></i>
+						</div>
+						<div class="activity-details">
+							<h6>Order #3844 cancelled</h6>
+							<p>Customer: Emma Wilson - $312.00</p>
+						</div>
+						<span class="activity-time">3 hours ago</span>
+					</div>
+				</div>
+			</div>
+		</div>
 
-        <div class="col-xl-6">
-            <div class="activity-card">
-                <div class="activity-header">
-                    <h5><i class="fas fa-star me-2"></i>Top Products</h5>
-                    <a href="#" class="view-all">View All <i class="fas fa-arrow-right ms-1"></i></a>
-                </div>
-                <div class="top-products-list">
-                    <div class="product-item">
-                        <div class="product-info">
-                            <div class="product-number">#1</div>
-                            <div class="product-details">
-                                <h6>Wireless Headphones</h6>
-                                <p>Electronics</p>
-                            </div>
-                        </div>
-                        <div class="product-stats">
-                            <span class="sales">234 sales</span>
-                            <span class="revenue">$12,450</span>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-info">
-                            <div class="product-number">#2</div>
-                            <div class="product-details">
-                                <h6>Smart Watch Pro</h6>
-                                <p>Wearables</p>
-                            </div>
-                        </div>
-                        <div class="product-stats">
-                            <span class="sales">189 sales</span>
-                            <span class="revenue">$9,870</span>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-info">
-                            <div class="product-number">#3</div>
-                            <div class="product-details">
-                                <h6>Laptop Stand</h6>
-                                <p>Accessories</p>
-                            </div>
-                        </div>
-                        <div class="product-stats">
-                            <span class="sales">156 sales</span>
-                            <span class="revenue">$4,680</span>
-                        </div>
-                    </div>
-                    <div class="product-item">
-                        <div class="product-info">
-                            <div class="product-number">#4</div>
-                            <div class="product-details">
-                                <h6>USB-C Cable</h6>
-                                <p>Electronics</p>
-                            </div>
-                        </div>
-                        <div class="product-stats">
-                            <span class="sales">142 sales</span>
-                            <span class="revenue">$2,840</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+		<div class="col-xl-6">
+			<div class="activity-card">
+				<div class="activity-header">
+					<h5><i class="fas fa-star me-2"></i>Top Products</h5>
+					<a href="#" class="view-all">View All <i class="fas fa-arrow-right ms-1"></i></a>
+				</div>
+				<div class="top-products-list">
+					<div class="product-item">
+						<div class="product-info">
+							<div class="product-number">#1</div>
+							<div class="product-details">
+								<h6>Wireless Headphones</h6>
+								<p>Electronics</p>
+							</div>
+						</div>
+						<div class="product-stats">
+							<span class="sales">234 sales</span>
+							<span class="revenue">$12,450</span>
+						</div>
+					</div>
+					<div class="product-item">
+						<div class="product-info">
+							<div class="product-number">#2</div>
+							<div class="product-details">
+								<h6>Smart Watch Pro</h6>
+								<p>Wearables</p>
+							</div>
+						</div>
+						<div class="product-stats">
+							<span class="sales">189 sales</span>
+							<span class="revenue">$9,870</span>
+						</div>
+					</div>
+					<div class="product-item">
+						<div class="product-info">
+							<div class="product-number">#3</div>
+							<div class="product-details">
+								<h6>Laptop Stand</h6>
+								<p>Accessories</p>
+							</div>
+						</div>
+						<div class="product-stats">
+							<span class="sales">156 sales</span>
+							<span class="revenue">$4,680</span>
+						</div>
+					</div>
+					<div class="product-item">
+						<div class="product-info">
+							<div class="product-number">#4</div>
+							<div class="product-details">
+								<h6>USB-C Cable</h6>
+								<p>Electronics</p>
+							</div>
+						</div>
+						<div class="product-stats">
+							<span class="sales">142 sales</span>
+							<span class="revenue">$2,840</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
-<style>
-    .dashboard-home {
-        padding: 0;
-    }
-
-    .page-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-        .page-header h1 {
-            color: #2d3748;
-            font-size: 2rem;
-            font-weight: 700;
-        }
-
-    /* Statistics Cards */
-    .stats-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.5rem;
-        display: flex;
-        gap: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        transition: all 0.3s ease;
-        height: 100%;
-    }
-
-        .stats-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-        }
-
-    .stats-icon {
-        width: 70px;
-        height: 70px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.8rem;
-        color: white;
-        flex-shrink: 0;
-    }
-
-    .bg-gradient-primary {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-
-    .bg-gradient-success {
-        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-    }
-
-    .bg-gradient-warning {
-        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    }
-
-    .bg-gradient-danger {
-        background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-    }
-
-    .stats-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-        .stats-content h6 {
-            color: #6b7280;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
-
-        .stats-content h3 {
-            color: #1f2937;
-            font-size: 1.75rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-    .stats-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        font-size: 0.875rem;
-        font-weight: 600;
-        padding: 0.25rem 0.5rem;
-        border-radius: 6px;
-        width: fit-content;
-    }
-
-        .stats-badge.success {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .stats-badge.danger {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .stats-badge.neutral {
-            background: #f3f4f6;
-            color: #6b7280;
-        }
-
-    /* Chart Cards */
-    .chart-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        height: 100%;
-    }
-
-    .chart-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-
-        .chart-header h5 {
-            color: #1f2937;
-            font-weight: 600;
-            margin: 0;
-        }
-
-    .chart-actions {
-        display: flex;
-        gap: 0.5rem;
-    }
-
-        .chart-actions .btn {
-            padding: 0.375rem 0.75rem;
-            font-size: 0.875rem;
-        }
-
-            .chart-actions .btn.active {
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                color: white;
-                border-color: transparent;
-            }
-
-    /* Activity Cards */
-    .activity-card {
-        background: white;
-        border-radius: 16px;
-        padding: 1.5rem;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        height: 100%;
-    }
-
-    .activity-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1.5rem;
-    }
-
-        .activity-header h5 {
-            color: #1f2937;
-            font-weight: 600;
-            margin: 0;
-        }
-
-    .view-all {
-        color: #667eea;
-        text-decoration: none;
-        font-size: 0.875rem;
-        font-weight: 500;
-    }
-
-        .view-all:hover {
-            color: #764ba2;
-        }
-
-    .activity-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .activity-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 1rem;
-        background: #f9fafb;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-
-        .activity-item:hover {
-            background: #f3f4f6;
-            transform: translateX(5px);
-        }
-
-    .activity-icon {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: white;
-        flex-shrink: 0;
-    }
-
-        .activity-icon.bg-success {
-            background: #10b981;
-        }
-
-        .activity-icon.bg-warning {
-            background: #f59e0b;
-        }
-
-        .activity-icon.bg-danger {
-            background: #ef4444;
-        }
-
-    .activity-details {
-        flex: 1;
-    }
-
-        .activity-details h6 {
-            color: #1f2937;
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-bottom: 0.25rem;
-        }
-
-        .activity-details p {
-            color: #6b7280;
-            font-size: 0.875rem;
-            margin: 0;
-        }
-
-    .activity-time {
-        color: #9ca3af;
-        font-size: 0.75rem;
-        white-space: nowrap;
-    }
-
-    /* Top Products */
-    .top-products-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .product-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem;
-        background: #f9fafb;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-    }
-
-        .product-item:hover {
-            background: #f3f4f6;
-            transform: scale(1.02);
-        }
-
-    .product-info {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .product-number {
-        width: 40px;
-        height: 40px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 1.1rem;
-    }
-
-    .product-details h6 {
-        color: #1f2937;
-        font-size: 0.9rem;
-        font-weight: 600;
-        margin-bottom: 0.25rem;
-    }
-
-    .product-details p {
-        color: #6b7280;
-        font-size: 0.875rem;
-        margin: 0;
-    }
-
-    .product-stats {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.25rem;
-    }
-
-        .product-stats .sales {
-            color: #6b7280;
-            font-size: 0.875rem;
-        }
-
-        .product-stats .revenue {
-            color: #1f2937;
-            font-weight: 700;
-            font-size: 1rem;
-        }
-
-    @@media (max-width: 768px) {
-        .page-header {
-            flex-direction: column;
-            align-items: flex-start;
-        }
-
-        .stats-card {
-            flex-direction: column;
-            text-align: center;
-            align-items: center;
-        }
-
-        .chart-actions {
-            flex-wrap: wrap;
-        }
-    }
-</style>
 
 @section Scripts {
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Sales Overview Chart
-        const salesCtx = document.getElementById('salesChart').getContext('2d');
-        new Chart(salesCtx, {
-            type: 'line',
-            data: {
-                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                datasets: [{
-                    label: 'Sales',
-                    data: [4200, 5100, 4800, 6300, 5900, 7200, 6800],
-                    borderColor: 'rgb(102, 126, 234)',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    tension: 0.4,
-                    fill: true,
-                    pointBackgroundColor: 'rgb(102, 126, 234)',
-                    pointBorderColor: '#fff',
-                    pointBorderWidth: 2,
-                    pointRadius: 5,
-                    pointHoverRadius: 7
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            callback: function(value) {
-                                return '$' + value.toLocaleString();
-                            }
-                        }
-                    }
-                }
-            }
-        });
+	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+	<script>
+		// Sales Overview Chart
+		const salesCtx = document.getElementById('salesChart').getContext('2d');
+		new Chart(salesCtx, {
+			type: 'line',
+			data: {
+				labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+				datasets: [{
+					label: 'Sales',
+					data: [4200, 5100, 4800, 6300, 5900, 7200, 6800],
+					borderColor: 'rgb(102, 126, 234)',
+					backgroundColor: 'rgba(102, 126, 234, 0.1)',
+					tension: 0.4,
+					fill: true,
+					pointBackgroundColor: 'rgb(102, 126, 234)',
+					pointBorderColor: '#fff',
+					pointBorderWidth: 2,
+					pointRadius: 5,
+					pointHoverRadius: 7
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: {
+					legend: {
+						display: false
+					}
+				},
+				scales: {
+					y: {
+						beginAtZero: true,
+						ticks: {
+							callback: function(value) {
+								return '$' + value.toLocaleString();
+							}
+						}
+					}
+				}
+			}
+		});
 
-        // Category Chart
-        const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-        new Chart(categoryCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Electronics', 'Clothing', 'Home & Garden', 'Sports', 'Books'],
-                datasets: [{
-                    data: [35, 25, 20, 12, 8],
-                    backgroundColor: [
-                        'rgb(102, 126, 234)',
-                        'rgb(16, 185, 129)',
-                        'rgb(245, 158, 11)',
-                        'rgb(239, 68, 68)',
-                        'rgb(139, 92, 246)'
-                    ],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 15,
-                            usePointStyle: true,
-                            font: {
-                                size: 12
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    </script>
+		// Category Chart
+		const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+		new Chart(categoryCtx, {
+			type: 'doughnut',
+			data: {
+				labels: ['Electronics', 'Clothing', 'Home & Garden', 'Sports', 'Books'],
+				datasets: [{
+					data: [35, 25, 20, 12, 8],
+					backgroundColor: [
+						'rgb(102, 126, 234)',
+						'rgb(16, 185, 129)',
+						'rgb(245, 158, 11)',
+						'rgb(239, 68, 68)',
+						'rgb(139, 92, 246)'
+					],
+					borderWidth: 0
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				plugins: {
+					legend: {
+						position: 'bottom',
+						labels: {
+							padding: 15,
+							usePointStyle: true,
+							font: {
+								size: 12
+							}
+						}
+					}
+				}
+			}
+		});
+	</script>
 }
