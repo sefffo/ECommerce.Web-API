@@ -3,6 +3,7 @@
 ###############################################################################
 * text=auto
 
+
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
@@ -11,6 +12,7 @@
 # Note: This is only used by command line
 ###############################################################################
 #*.cs     diff=csharp
+
 
 ###############################################################################
 # Set the merge driver for project and solution files
@@ -35,6 +37,7 @@
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
 
+
 ###############################################################################
 # behavior for image files
 #
@@ -43,6 +46,7 @@
 #*.jpg   binary
 #*.png   binary
 #*.gif   binary
+
 
 ###############################################################################
 # diff behavior for common document formats
@@ -61,3 +65,10 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+
+###############################################################################
+# Exclude CSS and documentation from language statistics
+###############################################################################
+*.css linguist-vendored
+*.md linguist-documentation
