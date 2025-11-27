@@ -4,7 +4,6 @@ using AutoMapper;
 using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
 using Microsoft.AspNetCore.Mvc;
-using Ecommerce.Domain.Models.Products;
 using AdminDashBoardV1._0._0.Helper;
 namespace AdminDashBoardV1._0._0.Controllers
 {
@@ -13,6 +12,22 @@ namespace AdminDashBoardV1._0._0.Controllers
         public async Task<IActionResult> Index()
         {
             var products = await unitOfWork.GetRepository<Product, int>().GetAllAsync();
+
+            // Manually load Brand and Type for each product
+            foreach (var product in products)
+            {
+                if (product.BrandId > 0)
+                {
+                    product.ProductBrand = await unitOfWork.GetRepository<ProductBrand, int>()
+                        .GetByIdAsync(product.BrandId);
+                }
+
+                if (product.TypeId > 0)
+                {
+                    product.ProductType = await unitOfWork.GetRepository<ProductType, int>()
+                        .GetByIdAsync(product.TypeId);
+                }
+            }
 
             var mappedProducts = mapper.Map<IEnumerable<Product>, IEnumerable<ProductViewModel>>(products);
 

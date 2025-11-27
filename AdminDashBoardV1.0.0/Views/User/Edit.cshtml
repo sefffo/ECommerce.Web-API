@@ -1,31 +1,287 @@
 ﻿@model UserRoleViewModel
 @{
-	ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit User Roles";
 }
-<h1>Edit @Model.UserName</h1>
-<hr />
-<div class="container">
-	<form method="post" asp-action="Edit">
-		<input asp-for="Id" class="form-control" hidden />
-		<div>
-			<label asp-for="UserName" class="col-form-label"></label>
-			<input asp-for="UserName" class="form-control" disabled />
 
-		</div>
-		<h3>Manage user roles</h3>
-		<hr />
-		@for (int i = 0; i < Model.Roles.Count; i++)
-		{
-			<div>
-				<input asp-for="@Model.Roles[i].Name" hidden />
-				<input asp-for="@Model.Roles[i].IsSelected" class="form-check-label" />
-				<label asp-for="@Model.Roles[i]" class="form-check-label">@Model.Roles[i].Name</label>
-				<span asp-validation-for="Roles"></span>
+<div class="edit-user-page">
+    <!-- Page Header -->
+    <div class="page-header mb-4">
+        <div>
+            <h1 class="mb-2">
+                <i class="fas fa-user-edit me-2"></i>Manage User Roles
+            </h1>
+            <p class="text-muted">Assign roles to <strong>@Model.UserName</strong></p>
+        </div>
+    </div>
 
-			</div>
-		}
-		<br />
-		<input type="submit" value="Save" class="btn btn-success" />
-		<a asp-action="Index" class="btn btn-primary">Back to index</a>
-	</form>
+    <!-- Edit Form Card -->
+    <div class="card form-card">
+        <div class="card-body">
+            <form method="post" asp-action="Edit" id="editUserForm">
+                <input asp-for="Id" hidden />
+
+                <!-- User Info Display -->
+                <div class="user-info-section mb-4">
+                    <div class="user-display">
+                        <div class="user-avatar-large">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="user-info-text">
+                            <h4>@Model.UserName</h4>
+                            <p class="text-muted">Username</p>
+                        </div>
+                    </div>
+                </div>
+
+                <hr class="mb-4" />
+
+                <!-- Roles Section -->
+                <h5 class="mb-3">
+                    <i class="fas fa-shield-alt me-2"></i>Assign Roles
+                </h5>
+                <p class="text-muted mb-4">Select which roles this user should have access to</p>
+
+                <div class="roles-grid">
+                    @for (int i = 0; i < Model.Roles.Count; i++)
+                    {
+                        <div class="role-card">
+                            <input asp-for="@Model.Roles[i].Name" hidden />
+                            <div class="form-check">
+                                <input asp-for="@Model.Roles[i].IsSelected"
+                                       class="form-check-input"
+                                       type="checkbox"
+                                       id="role_@i" />
+                                <label class="form-check-label" for="role_@i">
+                                    <div class="role-info">
+                                        <i class="fas fa-shield-alt role-icon"></i>
+                                        <span class="role-name">@Model.Roles[i].Name</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <span asp-validation-for="Roles" class="text-danger validation-message"></span>
+
+                <div class="form-actions mt-4">
+                    <button type="submit" class="btn btn-save">
+                        <i class="fas fa-save me-2"></i>Save Changes
+                    </button>
+                    <a asp-action="Index" class="btn btn-cancel">
+                        <i class="fas fa-times me-2"></i>Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
+
+<style>
+    .edit-user-page {
+        animation: fadeIn 0.5s ease-in;
+    }
+
+    @@keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .page-header h1 {
+        color: #1f2937;
+        font-size: 2rem;
+        font-weight: 700;
+    }
+
+    .form-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        max-width: 800px;
+    }
+
+    /* User Info Section */
+    .user-info-section {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 2rem;
+        border-radius: 12px;
+        color: white;
+    }
+
+    .user-display {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .user-avatar-large {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        color: white;
+        flex-shrink: 0;
+    }
+
+    .user-info-text h4 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .user-info-text p {
+        margin: 0.25rem 0 0 0;
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    /* Roles Grid */
+    .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .role-card {
+        background: #f9fafb;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 1.25rem;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+        .role-card:hover {
+            background: #f3f4f6;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+        .role-card:has(input:checked) {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+
+    .form-check {
+        margin: 0;
+    }
+
+    .form-check-input {
+        width: 20px;
+        height: 20px;
+        border: 2px solid #d1d5db;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 0;
+    }
+
+        .form-check-input:checked {
+            background-color: #667eea;
+            border-color: #667eea;
+        }
+
+    .form-check-label {
+        cursor: pointer;
+        width: 100%;
+        margin-left: 0.5rem;
+    }
+
+    .role-info {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .role-icon {
+        color: #667eea;
+        font-size: 1.2rem;
+    }
+
+    .role-name {
+        color: #1f2937;
+        font-weight: 600;
+        font-size: 1rem;
+    }
+
+    .validation-message {
+        display: block;
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        padding-top: 2rem;
+        border-top: 1px solid #e5e7eb;
+    }
+
+    .btn-save {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 0.875rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+    }
+
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            color: white;
+        }
+
+    .btn-cancel {
+        background: #f3f4f6;
+        color: #4b5563;
+        border: none;
+        border-radius: 12px;
+        padding: 0.875rem 2rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+        .btn-cancel:hover {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .roles-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .form-actions {
+            flex-direction: column;
+        }
+
+        .btn-save, .btn-cancel {
+            width: 100%;
+        }
+
+        .user-display {
+            flex-direction: column;
+            text-align: center;
+        }
+    }
+</style>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,4 +1,4 @@
-﻿@using Ecommerce.Domain.Models.Contracts.UOW
+﻿@* @using Ecommerce.Domain.Models.Contracts.UOW
 @using Ecommerce.Domain.Models.Products
 
 @model ProductViewModel
@@ -37,4 +37,225 @@
     <select class="form-control" asp-for="TypeId" asp-items="Types">
         <option value="@null">-- Select Type --</option>
     </select>
+</div> *@
+@using Ecommerce.Domain.Models.Contracts.UOW
+@using Ecommerce.Domain.Models.Products
+
+@model ProductViewModel
+@inject IUnitOfWork unitOfWork
+@{
+    var Brands = new SelectList(unitOfWork.GetRepository<ProductBrand, int>().GetAllAsync().Result, "Id", "Name");
+    var Types = new SelectList(unitOfWork.GetRepository<ProductType, int>().GetAllAsync().Result, "Id", "Name");
+}
+
+<div class="product-form">
+    <div class="row g-4">
+        <!-- Image Upload -->
+        <div class="col-12">
+            <div class="form-group-modern">
+                <label class="form-label">
+                    <i class="fas fa-image me-2"></i>Product Image
+                </label>
+                <div class="image-upload-wrapper">
+                    <div class="image-preview" id="imagePreview">
+                        @if (!string.IsNullOrEmpty(Model?.PictureUrl))
+                        {
+                            <img src="~/@Model.PictureUrl" alt="Product" />
+                        }
+                        else
+                        {
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload image</p>
+                        }
+                    </div>
+                    <input asp-for="Image" type="file" class="form-control-file" id="imageInput" accept="image/*" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Name -->
+        <div class="col-md-6">
+            <div class="form-group-modern">
+                <label asp-for="Name" class="form-label">
+                    <i class="fas fa-box me-2"></i>Product Name
+                </label>
+                <input asp-for="Name" class="form-control-modern" placeholder="Enter product name" />
+                <span asp-validation-for="Name" class="validation-message"></span>
+            </div>
+        </div>
+
+        <!-- Price -->
+        <div class="col-md-6">
+            <div class="form-group-modern">
+                <label asp-for="Price" class="form-label">
+                    <i class="fas fa-dollar-sign me-2"></i>Price
+                </label>
+                <input asp-for="Price" type="number" step="0.01" class="form-control-modern" placeholder="0.00" />
+                <span asp-validation-for="Price" class="validation-message"></span>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="col-12">
+            <div class="form-group-modern">
+                <label asp-for="Description" class="form-label">
+                    <i class="fas fa-align-left me-2"></i>Description
+                </label>
+                <textarea asp-for="Description" class="form-control-modern" rows="4" placeholder="Enter product description"></textarea>
+                <span asp-validation-for="Description" class="validation-message"></span>
+            </div>
+        </div>
+
+        <!-- Brand -->
+        <div class="col-md-6">
+            <div class="form-group-modern">
+                <label asp-for="Brand" class="form-label">
+                    <i class="fas fa-tag me-2"></i>Brand
+                </label>
+                <select class="form-select-modern" asp-for="BrandId" asp-items="Brands">
+                    <option value="">-- Select Brand --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Type -->
+        <div class="col-md-6">
+            <div class="form-group-modern">
+                <label asp-for="Type" class="form-label">
+                    <i class="fas fa-list me-2"></i>Type
+                </label>
+                <select class="form-select-modern" asp-for="TypeId" asp-items="Types">
+                    <option value="">-- Select Type --</option>
+                </select>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .product-form {
+        padding: 0;
+    }
+
+    .form-group-modern {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+        color: #374151;
+        font-weight: 600;
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .form-control-modern,
+    .form-select-modern {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        border: 2px solid #e5e7eb;
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: white;
+    }
+
+        .form-control-modern:focus,
+        .form-select-modern:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+
+        .form-control-modern::placeholder {
+            color: #9ca3af;
+        }
+
+    textarea.form-control-modern {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .validation-message {
+        display: block;
+        color: #dc2626;
+        font-size: 0.875rem;
+        margin-top: 0.5rem;
+    }
+
+    /* Image Upload */
+    .image-upload-wrapper {
+        position: relative;
+    }
+
+    .image-preview {
+        width: 100%;
+        height: 300px;
+        border: 3px dashed #e5e7eb;
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background: #f9fafb;
+        overflow: hidden;
+        position: relative;
+    }
+
+        .image-preview:hover {
+            border-color: #667eea;
+            background: #f3f4f6;
+        }
+
+        .image-preview i {
+            font-size: 4rem;
+            color: #9ca3af;
+            margin-bottom: 1rem;
+        }
+
+        .image-preview p {
+            color: #6b7280;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 1rem;
+        }
+
+    .form-control-file {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    @@media (max-width: 768px) {
+        .image-preview {
+            height: 200px;
+        }
+    }
+</style>
+
+<script>
+    // Image preview functionality
+    document.getElementById('imageInput')?.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const preview = document.getElementById('imagePreview');
+                preview.innerHTML = `<img src="${event.target.result}" alt="Preview" />`;
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
