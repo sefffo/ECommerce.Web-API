@@ -33,13 +33,17 @@ namespace Ecommerce.Presistence.Contexts
             builder.Entity<IdentityUserRole<string>>().ToTable("User_Roles");
 
 
-            builder.Ignore<IdentityUserClaim<string>>();
-            builder.Ignore<IdentityRoleClaim<string>>();
-            builder.Ignore<IdentityUserToken<string>>();//we will use JWT
-            builder.Ignore<IdentityUserLogin<string>>();
+            //builder.Ignore<IdentityUserClaim<string>>();
+            //builder.Ignore<IdentityRoleClaim<string>>();
+            //builder.Ignore<IdentityUserToken<string>>();//we will use JWT
+            //builder.Ignore<IdentityUserLogin<string>>();
+
+            builder.Entity<IdentityUserClaim<string>>().ToTable("User_Claims");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("Role_Claims");
+            builder.Entity<IdentityUserToken<string>>().ToTable("User_Tokens");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("User_Logins");
 
 
-           
 
         }
 

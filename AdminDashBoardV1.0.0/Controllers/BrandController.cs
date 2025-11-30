@@ -1,9 +1,11 @@
 ﻿using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AdminDashBoardV1._0._0.Controllers
 {
+    [Authorize]
     public class BrandController(IUnitOfWork _unitOfWork): Controller
     {
         public async Task<IActionResult> Index()

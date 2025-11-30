@@ -1,5 +1,6 @@
 ﻿using AdminDashBoardV1._0._0.Models;
 using Ecommerce.Presistence.Contexts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace AdminDashBoardV1._0._0.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class RoleController(RoleManager<IdentityRole> roleManager) : Controller
     {
         public async Task<IActionResult> Index()

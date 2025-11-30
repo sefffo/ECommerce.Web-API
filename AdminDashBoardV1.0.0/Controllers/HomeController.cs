@@ -1,9 +1,11 @@
 using AdminDashBoardV1._0._0.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace AdminDashBoardV1._0._0.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

@@ -1,6 +1,7 @@
 ﻿using AdminDashBoardV1._0._0.Models;
 using AdminDashBoardV1._0._0.Views.User;
 using Ecommerce.Domain.Models.Identity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace AdminDashBoardV1._0._0.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class UserController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager) : Controller
     {
 

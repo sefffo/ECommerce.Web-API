@@ -4,6 +4,7 @@ using Ecommerce.Presistence.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce.Presistence.Identity.Migrations
 {
     [DbContext(typeof(StoreIdntityDbContext))]
-    partial class StoreIdntityDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251130191039_AddIdentityClaimsTables")]
+    partial class AddIdentityClaimsTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

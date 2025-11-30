@@ -5,10 +5,13 @@ using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Products;
 using Microsoft.AspNetCore.Mvc;
 using AdminDashBoardV1._0._0.Helper;
+using Microsoft.AspNetCore.Authorization;
 namespace AdminDashBoardV1._0._0.Controllers
 {
+    [Authorize(Roles = "Admin,SuperAdmin")]
     public class ProductController(IUnitOfWork unitOfWork, IMapper mapper) : Controller
     {
+
         public async Task<IActionResult> Index()
         {
             var products = await unitOfWork.GetRepository<Product, int>().GetAllAsync();
