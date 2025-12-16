@@ -45,6 +45,29 @@ namespace AdminDashBoardV1._0._0
             .AddEntityFrameworkStores<StoreIdntityDbContext>()
             .AddDefaultTokenProviders();
 
+
+            //===============================================
+            // UPDATED: Add Google OAuth Authentication
+            //===============================================
+            builder.Services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    // Use the same Google credentials from your API
+                    options.ClientId = builder.Configuration["Authentication:Google:ClientId"]
+                    ?? throw new InvalidOperationException("Google ClientId is not configured");
+
+                    options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"]
+                        ?? throw new InvalidOperationException("Google ClientSecret is not configured");
+                    // Dashboard-specific callback path
+                    options.CallbackPath = "/signin-google-admin";
+
+                    // Use cookie scheme for OAuth flow
+                    options.SignInScheme = IdentityConstants.ExternalScheme;
+
+                    // Save tokens for later use (optional)
+                    options.SaveTokens = true;
+                });
+
             // Configure Cookie Authentication
             builder.Services.ConfigureApplicationCookie(options =>
             {

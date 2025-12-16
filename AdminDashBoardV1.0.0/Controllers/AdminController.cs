@@ -1,8 +1,12 @@
 ﻿using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Shared.DTOs.IdentityDto_s;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace AdminDashBoardV1._0._0.Controllers
 {
@@ -112,5 +116,72 @@ namespace AdminDashBoardV1._0._0.Controllers
         {
             return View();
         }
+
+        //===============================================
+        // NEW: Google OAuth Methods
+        //===============================================
+
+        /// <summary>
+        /// Initiates Google login for admin dashboard
+        /// </summary>
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult GoogleLogin()
+        {
+            // Configure where to redirect after Google authentication
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = Url.Action("GoogleCallback")
+            };
+
+            // Redirect to Google login
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        /// <summary>
+        /// Handles Google OAuth callback
+        /// </summary>
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GoogleCallback()
+        {
+            // Get authentication result from Google
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            if (!result.Succeeded)
+            {
+                TempData["Error"] = "Google authentication failed";
+                return RedirectToAction("Login");
+            }
+
+            // Extract user information from Google
+            var claims = result.Principal.Claims;
+            var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+            var name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
+
+            // Check if user exists and is an admin
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                TempData["Error"] = "No admin account found for this Google account";
+                return RedirectToAction("Login");
+            }
+
+            // Check if user has admin role
+            var roles = await _userManager.GetRolesAsync(user);
+            if (!roles.Contains("Admin") && !roles.Contains("SuperAdmin"))
+            {
+                TempData["Error"] = "Access denied. Admin privileges required.";
+                return RedirectToAction("Login");
+            }
+
+            // Sign in the admin user
+            await _signInManager.SignInAsync(user, isPersistent: false);
+
+            return RedirectToAction("Index", "Home");
+        }
+
     }
 }
