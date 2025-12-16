@@ -46,78 +46,86 @@ A modular, scalable, and production-ready **E-Commerce Platform** built with **A
 
 **Built with:** .NET 9, C# 13, Entity Framework Core, ASP.NET Core Identity, JWT, Google OAuth 2.0, AutoMapper, Stripe, Redis
 
-### 📁 Project Structure
-
-#### **🎯 ECommerce.Core** (Domain Layer)
-├── Abstraction/ # Service interfaces
-│ ├── IProductService
-│ ├── ICartService
-│ ├── IOrderService
-│ ├── IAuthService
-│ └── ICacheService
-├── Domain/ # Domain entities
-│ ├── Models/
-│ │ ├── Products/
-│ │ ├── Orders/
-│ │ ├── Cart/
-│ │ └── Identity/
-│ ├── Exceptions/
-│ └── BaseEntity
-└── Contracts/ # Repository interfaces
-├── IGenericRepository
-├── IUnitOfWork
-└── ISpecification
-
-
-#### **⚙️ Ecommerce.Service** (Business Layer)
-├── Services/ # Business logic implementation
-│ ├── AuthService # JWT + Google OAuth
-│ ├── ProductService
-│ ├── CartService # Redis integration
-│ ├── OrderService
-│ ├── PaymentService # Stripe integration
-│ └── CacheService
-├── MappingProfiles/ # AutoMapper configurations
-├── Specifications/ # Query specifications
-└── Helpers/ # Utility classes
-
-
-#### **📤 Ecommerce.Shared** (Shared Layer)
-├── DTOs/ # Data Transfer Objects
-│ ├── ProductDto
-│ ├── CartDto
-│ ├── OrderDto
-│ └── IdentityDto
-├── ErrorModels/ # Standardized error responses
-├── Common/ # Enums, constants
-└── Pagination/ # Pagination utilities
-
-
-#### **🌐 ECommerce.Web** (Presentation Layer - API)
-├── Controllers/ # API endpoints
-├── Middlewares/ # Exception handling
-├── Extensions/ # Service configurations
-├── Program.cs # Startup & DI container
-└── appsettings.json # Configuration
-
-#### **🎨 AdminDashboard** (Presentation Layer - MVC)
-├── Controllers/
-│ ├── AdminController # Auth + Google OAuth
-│ ├── ProductsController
-│ ├── BrandsController
-│ ├── TypesController
-│ ├── UsersController
-│ └── RolesController
-├── Views/
-│ ├── Admin/
-│ │ └── Login.cshtml # Google OAuth UI
-│ ├── Products/
-│ ├── Users/
-│ └── Shared/
-└── wwwroot/
-├── css/
-│ └── auth.css # Beautiful UI styles
-└── js/
+📦 E-Commerce Solution
+│
+├─ 🎯 ECommerce.Core (Domain Layer)
+│  │
+│  ├─ Abstraction/
+│  │  ├─ IProductService
+│  │  ├─ ICartService
+│  │  ├─ IOrderService
+│  │  ├─ IAuthService
+│  │  └─ ICacheService
+│  │
+│  ├─ Domain/
+│  │  ├─ Models/
+│  │  │  ├─ Products/
+│  │  │  ├─ Orders/
+│  │  │  ├─ Cart/
+│  │  │  └─ Identity/
+│  │  ├─ Exceptions/
+│  │  └─ BaseEntity
+│  │
+│  └─ Contracts/
+│     ├─ IGenericRepository
+│     ├─ IUnitOfWork
+│     └─ ISpecification
+│
+├─ ⚙️ Ecommerce.Service (Business Layer)
+│  │
+│  ├─ Services/
+│  │  ├─ AuthService (JWT + Google OAuth)
+│  │  ├─ ProductService
+│  │  ├─ CartService (Redis integration)
+│  │  ├─ OrderService
+│  │  ├─ PaymentService (Stripe integration)
+│  │  └─ CacheService
+│  │
+│  ├─ MappingProfiles/ (AutoMapper configurations)
+│  ├─ Specifications/ (Query specifications)
+│  └─ Helpers/ (Utility classes)
+│
+├─ 📤 Ecommerce.Shared (Shared Layer)
+│  │
+│  ├─ DTOs/
+│  │  ├─ ProductDto
+│  │  ├─ CartDto
+│  │  ├─ OrderDto
+│  │  └─ IdentityDto
+│  │
+│  ├─ ErrorModels/ (Standardized error responses)
+│  ├─ Common/ (Enums, constants)
+│  └─ Pagination/ (Pagination utilities)
+│
+├─ 🌐 ECommerce.Web (Presentation Layer - API)
+│  │
+│  ├─ Controllers/ (API endpoints)
+│  ├─ Middlewares/ (Exception handling)
+│  ├─ Extensions/ (Service configurations)
+│  ├─ Program.cs (Startup & DI container)
+│  └─ appsettings.json (Configuration)
+│
+└─ 🎨 AdminDashboard (Presentation Layer - MVC)
+   │
+   ├─ Controllers/
+   │  ├─ AdminController (Auth + Google OAuth)
+   │  ├─ ProductsController
+   │  ├─ BrandsController
+   │  ├─ TypesController
+   │  ├─ UsersController
+   │  └─ RolesController
+   │
+   ├─ Views/
+   │  ├─ Admin/
+   │  │  └─ Login.cshtml (Google OAuth UI)
+   │  ├─ Products/
+   │  ├─ Users/
+   │  └─ Shared/
+   │
+   └─ wwwroot/
+      ├─ css/
+      │  └─ auth.css (Beautiful UI styles)
+      └─ js/
 
 
 ---
@@ -148,24 +156,38 @@ A modular, scalable, and production-ready **E-Commerce Platform** built with **A
 - ✅ **Strategy Pattern:** Payment processing
 - ✅ **Middleware Pattern:** Request pipeline
 
-### 🎯 **Clean Architecture Layers**
-┌─────────────────────────────────────┐
-│ Presentation (API + MVC) │
-│ - Controllers │
-│ - Views (Admin Dashboard) │
-├─────────────────────────────────────┤
-│ Service Layer │
-│ - Business Logic │
-│ - Specifications │
-├─────────────────────────────────────┤
-│ Domain Layer │
-│ - Entities │
-│ - Interfaces │
-├─────────────────────────────────────┤
-│ Infrastructure (Future) │
-│ - EF Core Implementation │
-│ - External Services │
-└─────────────────────────────────────┘
+┌──────────────────────────────────────────────┐
+│         Presentation Layer                   │
+│  ┌────────────────┐  ┌──────────────────┐   │
+│  │  Web API       │  │  Admin Dashboard │   │
+│  │  (REST API)    │  │  (MVC + OAuth)   │   │
+│  └────────────────┘  └──────────────────┘   │
+└──────────────────────────────────────────────┘
+                    ↓
+┌──────────────────────────────────────────────┐
+│           Service Layer                      │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │  Auth    │  │ Product  │  │  Order   │   │
+│  │ Service  │  │ Service  │  │ Service  │   │
+│  └──────────┘  └──────────┘  └──────────┘   │
+└──────────────────────────────────────────────┘
+                    ↓
+┌──────────────────────────────────────────────┐
+│           Domain Layer                       │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │ Entities │  │Interface │  │  Domain  │   │
+│  │  (Core)  │  │  (IRepo) │  │  Logic   │   │
+│  └──────────┘  └──────────┘  └──────────┘   │
+└──────────────────────────────────────────────┘
+                    ↓
+┌──────────────────────────────────────────────┐
+│      Data Access (EF Core + Redis)           │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐   │
+│  │   SQL    │  │  Redis   │  │  Stripe  │   │
+│  │  Server  │  │  Cache   │  │   API    │   │
+│  └──────────┘  └──────────┘  └──────────┘   │
+└──────────────────────────────────────────────┘
+
 
 ---
 
