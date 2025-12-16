@@ -16,5 +16,8 @@ namespace Ecommerce.Abstraction.Services
         Task<AddressDto> GetCurrentUserAddressAsync(string Email);
         Task<AddressDto> UpdateCurrentUserAddressAsync(string email,AddressDto dto);
         Task<UserDto> GetCurrentUserAsync(string email);
+
+        //adding OAuth
+        Task<UserDto> GetOrCreateGoogleUserAsync(string email, string displayName, string googleId);
     }
 }
