@@ -15,6 +15,20 @@
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+    <!-- DEBUG INFO - Remove after fixing -->
+    <div style="background: yellow; padding: 10px; margin: 10px; border: 2px solid red;">
+        <strong>DEBUG:</strong><br />
+        IsAuthenticated: @(User.Identity?.IsAuthenticated ?? false)<br />
+        User Name: @(User.Identity?.Name ?? "None")<br />
+        @if (User.Identity?.IsAuthenticated == true)
+        {
+            <span>Auth Type: @User.Identity.AuthenticationType</span>
+        
+            <br />
+            <span>Claims Count: @User.Claims.Count()</span>
+        }
+    </div>
     <div class="login-container">
         <div class="login-card">
             <div class="card-header">
@@ -25,6 +39,17 @@
                 <p>Access your dashboard</p>
             </div>
             <div class="card-body">
+                <!-- Display error messages from TempData -->
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i>
+                        @TempData["Error"]
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                }
+
+                <!-- Email/Password Login Form -->
                 <form method="post" asp-action="Login">
                     <!-- Show validation errors -->
                     <div asp-validation-summary="All" class="text-danger mb-3"></div>
@@ -55,6 +80,19 @@
 
                     <button class="btn btn-login" type="submit">
                         <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                    </button>
+                </form>
+
+                <!-- Divider -->
+                <div class="login-divider">
+                    <span>OR</span>
+                </div>
+
+                <!-- Google Login Button -->
+                <form method="post" asp-action="GoogleLogin">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-google">
+                        <i class="fab fa-google me-2"></i>Sign in with Google
                     </button>
                 </form>
             </div>

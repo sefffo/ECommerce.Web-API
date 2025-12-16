@@ -879,3 +879,90 @@ textarea.form-control-modern {
         height: 200px;
     }
 }
+/* ========================================
+   GOOGLE LOGIN BUTTON & DIVIDER
+   ======================================== */
+
+/* Login Divider */
+.login-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: #718096;
+}
+
+    .login-divider::before,
+    .login-divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .login-divider span {
+        padding: 0 1rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #9ca3af;
+    }
+
+/* Google Login Button */
+.btn-google {
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    background: white;
+    color: #333;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+    .btn-google:hover {
+        background: #f7fafc;
+        border-color: #cbd5e0;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        color: #333;
+    }
+
+    .btn-google i.fa-google {
+        color: #4285f4;
+        font-size: 1.25rem;
+    }
+
+    .btn-google:active {
+        transform: translateY(0);
+    }
+
+/* Alert Styling Enhancement */
+.alert {
+    border-radius: 12px;
+    border: none;
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.alert-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.alert i {
+    font-size: 1.1rem;
+}
+
+.btn-close {
+    background-size: 0.875rem;
+    opacity: 0.6;
+}
+
+    .btn-close:hover {
+        opacity: 1;
+    }

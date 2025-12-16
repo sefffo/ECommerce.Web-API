@@ -1,7 +1,6 @@
 ﻿using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Shared.DTOs.IdentityDto_s;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -22,7 +21,9 @@ namespace AdminDashBoardV1._0._0.Controllers
             _userManager = userManager;
         }
 
-        // Login page - accessible to everyone
+        /// <summary>
+        /// Displays the admin login page
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string? returnUrl = null)
@@ -37,6 +38,9 @@ namespace AdminDashBoardV1._0._0.Controllers
             return View();
         }
 
+        /// <summary>
+        /// Handles email/password login for admin users
+        /// </summary>
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -65,12 +69,12 @@ namespace AdminDashBoardV1._0._0.Controllers
                 return View(login);
             }
 
-            //  ACTUAL SIGN IN - Creates cookie based on RememberMe
+            // Sign in with password
             var result = await _signInManager.PasswordSignInAsync(
                 user,
                 login.Password,
-                isPersistent: login.RememberMe, // Remember Me functionality
-                lockoutOnFailure: true // Lock account after 5 failed attempts
+                isPersistent: login.RememberMe,
+                lockoutOnFailure: true
             );
 
             if (result.Succeeded)
@@ -91,7 +95,6 @@ namespace AdminDashBoardV1._0._0.Controllers
 
             if (result.RequiresTwoFactor)
             {
-                // Handle two-factor authentication if enabled
                 ModelState.AddModelError(string.Empty, "Two-factor authentication required");
                 return View(login);
             }
@@ -100,16 +103,29 @@ namespace AdminDashBoardV1._0._0.Controllers
             ModelState.AddModelError(string.Empty, "Invalid email or password");
             return View(login);
         }
-        [HttpPost] // Add this back
+
+        /// <summary>
+        /// Logs out the current admin user
+        /// </summary>
         [Authorize]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
+            // Sign out from Identity cookies
             await _signInManager.SignOutAsync();
+
+            // Clean up external authentication cookie if any
+            try
+            {
+                await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            }
+            catch { }
+
             return RedirectToAction("Login");
         }
 
-        // Optional: Access Denied page
+        /// <summary>
+        /// Displays the access denied page
+        /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()
@@ -118,18 +134,26 @@ namespace AdminDashBoardV1._0._0.Controllers
         }
 
         //===============================================
-        // NEW: Google OAuth Methods
+        // Google OAuth Authentication
         //===============================================
 
         /// <summary>
-        /// Initiates Google login for admin dashboard
+        /// Initiates Google OAuth login flow for admin dashboard
         /// </summary>
         [HttpPost]
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public IActionResult GoogleLogin()
+        public async Task<IActionResult> GoogleLogin()
         {
-            // Configure where to redirect after Google authentication
+            // Sign out any existing sessions to start fresh
+            await _signInManager.SignOutAsync();
+
+            try
+            {
+                await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            }
+            catch { }
+
+            // Configure OAuth callback URL
             var properties = new AuthenticationProperties
             {
                 RedirectUri = Url.Action("GoogleCallback")
@@ -140,27 +164,33 @@ namespace AdminDashBoardV1._0._0.Controllers
         }
 
         /// <summary>
-        /// Handles Google OAuth callback
+        /// Handles the OAuth callback from Google after user authentication
         /// </summary>
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> GoogleCallback()
         {
-            // Get authentication result from Google
-            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            // Authenticate using Identity's External scheme
+            var result = await HttpContext.AuthenticateAsync(IdentityConstants.ExternalScheme);
 
-            if (!result.Succeeded)
+            if (!result.Succeeded || result.Principal == null)
             {
                 TempData["Error"] = "Google authentication failed";
                 return RedirectToAction("Login");
             }
 
-            // Extract user information from Google
+            // Extract user information from Google claims
             var claims = result.Principal.Claims;
             var email = claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
             var name = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name)?.Value;
 
-            // Check if user exists and is an admin
+            if (string.IsNullOrEmpty(email))
+            {
+                TempData["Error"] = "Email not provided by Google";
+                return RedirectToAction("Login");
+            }
+
+            // Check if user exists in database
             var user = await _userManager.FindByEmailAsync(email);
 
             if (user == null)
@@ -169,7 +199,7 @@ namespace AdminDashBoardV1._0._0.Controllers
                 return RedirectToAction("Login");
             }
 
-            // Check if user has admin role
+            // Verify user has admin privileges
             var roles = await _userManager.GetRolesAsync(user);
             if (!roles.Contains("Admin") && !roles.Contains("SuperAdmin"))
             {
@@ -177,11 +207,13 @@ namespace AdminDashBoardV1._0._0.Controllers
                 return RedirectToAction("Login");
             }
 
-            // Sign in the admin user
+            // Sign in the admin user with application cookie
             await _signInManager.SignInAsync(user, isPersistent: false);
+
+            // Clean up external authentication cookie
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
