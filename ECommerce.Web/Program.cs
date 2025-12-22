@@ -242,8 +242,10 @@ namespace ECommerce.Web
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
 
+
+            var builder = WebApplication.CreateBuilder(args);
+            //Console.WriteLine("Google ClientId = " + builder.Configuration["Authentication:Google:ClientId"]);
             // Add services to the container.
             builder.Services.AddControllers();
 
