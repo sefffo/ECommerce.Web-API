@@ -3,6 +3,7 @@ using Ecommerce.Domain.Models.Contracts.UOW;
 using Ecommerce.Domain.Models.Identity;
 using Ecommerce.Presistence.Contexts;
 using Ecommerce.Presistence.UnitOfWork;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
@@ -101,6 +102,11 @@ namespace AdminDashBoardV1._0._0
             });
 
             var app = builder.Build();
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

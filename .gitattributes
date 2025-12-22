@@ -71,4 +71,6 @@
 # Exclude CSS and documentation from language statistics
 ###############################################################################
 *.css linguist-vendored
+*.cshtml linguist-vendored
+*.cshtml linguist-vendored
 *.md linguist-documentation

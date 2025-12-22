@@ -1,24 +1,91 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>bdeab862-77ba-43b7-8e1b-5c0484417122</UserSecretsId>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net9.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UserSecretsId>bdeab862-77ba-43b7-8e1b-5c0484417122</UserSecretsId>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.11" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<Content Remove="wwwroot\Data\brands.json" />
+		<Content Remove="wwwroot\Data\delivery.json" />
+		<Content Remove="wwwroot\Data\Product Images\CheesyVegetableLasagna.png" />
+		<Content Remove="wwwroot\Data\Product Images\ChickenMarsala.png" />
+		<Content Remove="wwwroot\Data\Product Images\ChickenTeriyakiNoodles.png" />
+		<Content Remove="wwwroot\Data\Product Images\ChickenTikkaMasala.jpg" />
+		<Content Remove="wwwroot\Data\Product Images\Congee.png" />
+		<Content Remove="wwwroot\Data\Product Images\CreamyGochujangTortellini.png" />
+		<Content Remove="wwwroot\Data\Product Images\CrispyVegetablePakoras.png" />
+		<Content Remove="wwwroot\Data\Product Images\HaluskiNoodles.png" />
+		<Content Remove="wwwroot\Data\Product Images\HeartyVegetableLasagna.png" />
+		<Content Remove="wwwroot\Data\Product Images\ItalianChickenMarinade.png" />
+		<Content Remove="wwwroot\Data\Product Images\ItalianWeddingSoup.png" />
+		<Content Remove="wwwroot\Data\Product Images\Kulfi.png" />
+		<Content Remove="wwwroot\Data\Product Images\PastaSalad.png" />
+		<Content Remove="wwwroot\Data\Product Images\PepperPasta.png" />
+		<Content Remove="wwwroot\Data\Product Images\ShrimpEggFooYoung.png" />
+		<Content Remove="wwwroot\Data\Product Images\TandooriChicken.png" />
+		<Content Remove="wwwroot\Data\Product Images\VegetarianKorma.png" />
+		<Content Remove="wwwroot\Data\Product Images\VegetarianRefriedBeans.png" />
+		<Content Remove="wwwroot\Data\products.json" />
+		<Content Remove="wwwroot\Data\types.json" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Infrastructure\Ecommerce.Presentation\Ecommerce.Presentation.csproj" />
-    <ProjectReference Include="..\Infrastructure\Ecommerce.Presistence\Ecommerce.Presistence.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="wwwroot\Data\brands.json" />
+		<None Include="wwwroot\Data\delivery.json" />
+		<None Include="wwwroot\Data\Product Images\CheesyVegetableLasagna.png" />
+		<None Include="wwwroot\Data\Product Images\ChickenMarsala.png" />
+		<None Include="wwwroot\Data\Product Images\ChickenTeriyakiNoodles.png" />
+		<None Include="wwwroot\Data\Product Images\ChickenTikkaMasala.jpg" />
+		<None Include="wwwroot\Data\Product Images\Congee.png" />
+		<None Include="wwwroot\Data\Product Images\CreamyGochujangTortellini.png" />
+		<None Include="wwwroot\Data\Product Images\CrispyVegetablePakoras.png" />
+		<None Include="wwwroot\Data\Product Images\HaluskiNoodles.png" />
+		<None Include="wwwroot\Data\Product Images\HeartyVegetableLasagna.png" />
+		<None Include="wwwroot\Data\Product Images\ItalianChickenMarinade.png" />
+		<None Include="wwwroot\Data\Product Images\ItalianWeddingSoup.png" />
+		<None Include="wwwroot\Data\Product Images\Kulfi.png" />
+		<None Include="wwwroot\Data\Product Images\PastaSalad.png" />
+		<None Include="wwwroot\Data\Product Images\PepperPasta.png" />
+		<None Include="wwwroot\Data\Product Images\ShrimpEggFooYoung.png" />
+		<None Include="wwwroot\Data\Product Images\TandooriChicken.png" />
+		<None Include="wwwroot\Data\Product Images\VegetarianKorma.png" />
+		<None Include="wwwroot\Data\Product Images\VegetarianRefriedBeans.png" />
+		<None Include="wwwroot\Data\products.json" />
+		<None Include="wwwroot\Data\types.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="9.0.11" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.10">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.0" />
+		<PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Infrastructure\Ecommerce.Presentation\Ecommerce.Presentation.csproj" />
+		<ProjectReference Include="..\Infrastructure\Ecommerce.Presistence\Ecommerce.Presistence.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Update="appsettings.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+		<Content Update="appsettings.Development.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+		<Content Update="appsettings.Production.json">
+			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
+			<CopyToPublishDirectory>Never</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+
 
 </Project>
